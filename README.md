@@ -1,6 +1,6 @@
-# Homelab
+# Homelab Setup
 
-## Setup instructions
+## General
 Upgrade the system after the installation:
 ```
 sudo apt update
@@ -13,7 +13,7 @@ sudo apt install fonts-terminus
 sudo dpkg-reconfigure console-setup
 ```
 
-Switch default editor to VI:
+Switch default editor to Vim:
 ```
 sudo update-alternatives --config editor
 ```
@@ -53,23 +53,36 @@ sudo ln -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
 sudo systemctl reload-or-restart systemd-resolved
 ```
 
-## Tailscale configuration
-### DNS
-[Use Homelab's DNS over Tailscale](https://tailscale.com/kb/1114/pi-hole)
-### Subnet router
+## Docker
+[Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
+
+
+## Portainer
+[Install Portainer CE with Docker on Linux](https://docs.portainer.io/start/install-ce/server/docker/linux)
+
+[Restore Portainer configuration from backup](https://docs.portainer.io/admin/settings#restoring-from-a-local-file)
+
+## Tailscale
+[Install Tailscale](https://tailscale.com/kb/1347/installation)
+
+[Configure tailnet's DNS](https://tailscale.com/kb/1114/pi-hole)
+
 [Set up a subnet router](https://tailscale.com/kb/1019/subnets)
 
 ## Backups
-### Install dependencies
+
+Install dependencies:
 ```
 sudo apt install sshpass
 ```
-### Enable separate cron logs:
+
+Enable separate cron logs:
 ```
 sudo sed -i '/^#cron\.\*.*/s/^#//' /etc/rsyslog.d/50-default.conf
 sudo service rsyslog restart
 ```
-### Copy backup scripts
+
+Copy backup scripts:
 ```
-sudo cp ~/homelab/backup/*.sh /etc/cron.daily/
+sudo cp ~/homelab/backup/rsync-*.sh /etc/cron.daily/
 ```
