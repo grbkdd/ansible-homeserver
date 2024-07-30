@@ -12,14 +12,14 @@ notify() {
 echo "Loading configuration..."
 source "$(dirname $0)/.env"
 
-echo "Starting rsync backup of /var/lib/docker/volumes..."
+echo "Starting rsync backup of Docker volumes..."
 sshpass -p "$RSYNC_PASSWORD" rsync -e ssh -avhH --delete --progress /var/lib/docker/volumes/ rsync@cocoberry.local::NetBackup/docker/
 
 if [ "$?" -eq 0 ];
 then
-    echo "Backup finished successfully."
-    notify "Backup finished successfully."
+    echo "Backup of Docker volumes finished successfully."
+    notify "Backup of Docker volumes finished successfully."
 else
-    echo "Backup failed."
-    notify "Backup failed."
+    echo "Backup of Docker volumes failed."
+    notify "Backup of Docker volumes failed."
 fi

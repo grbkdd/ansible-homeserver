@@ -76,13 +76,23 @@ Install dependencies:
 sudo apt install sshpass
 ```
 
-Enable separate cron logs:
-```
-sudo sed -i '/^#cron\.\*.*/s/^#//' /etc/rsyslog.d/50-default.conf
-sudo service rsyslog restart
-```
-
 Copy backup scripts:
 ```
-sudo cp ~/homelab/backup/rsync-*.sh /etc/cron.daily/
+sudo cp -a backup /opt
+```
+
+Set credentials:
+```
+sudo vi /opt/backup/.env
+```
+
+Update crontab:
+```
+sudo crontab -e
+```
+
+Use the following configuration:
+```
+45 6 * * * /opt/backup/rsync-docker 2>&1 | /usr/bin/logger -t BACKUP
+0 7 * * * /opt/backup/rsync-disk 2>&1 | /usr/bin/logger -t BACKUP
 ```
