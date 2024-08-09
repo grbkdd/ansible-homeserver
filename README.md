@@ -96,3 +96,15 @@ Use the following configuration:
 45 6 * * * /opt/backup/rsync-docker 2>&1 | /usr/bin/logger -t BACKUP
 0 7 * * * /opt/backup/rsync-disk 2>&1 | /usr/bin/logger -t BACKUP
 ```
+
+## Configure power button
+
+Install dependencies:
+```
+sudo apt install acpid
+```
+
+Go to /etc/systemd/logind.conf and uncomment:
+```
+HandlePowerKey=poweroff
+```
