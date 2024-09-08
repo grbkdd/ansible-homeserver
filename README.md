@@ -44,7 +44,7 @@ sudo resize2fs /dev/mapper/ubuntu--vg-ubuntu--lv
 ### Disable built-in DNS server:
 ```
 sudo mkdir -p /etc/systemd/resolved.conf.d
-sudo cat > /etc/systemd/resolved.conf.d/adguardhome.conf << EOF
+sudo tee /etc/systemd/resolved.conf.d/adguardhome.conf << EOF
 [Resolve]
 DNS=127.0.0.1
 DNSStubListener=no
@@ -66,7 +66,7 @@ echo "HandlePowerKey=poweroff" | sudo tee /etc/systemd/logind.conf.d/poweroff.co
 ```
 sudo apt install sshpass
 sudo cp -a backup /opt
-sudo cat > /opt/backup/.env << EOF
+sudo tee /opt/backup/.env << EOF
 RSYNC_PASSWORD=
 APP_TOKEN=
 USER_TOKEN=
@@ -80,9 +80,29 @@ Use the following configuration:
 0 7 * * * /opt/backup/rsync-disk 2>&1 | /usr/bin/logger -t BACKUP
 ```
 
+### Set up Samba
+
+```
+sudo apt install samba
+sudo tee -a /etc/samba/smb.conf << EOF
+[global]
+   mdns name = mdns
+[disk]
+   comment = Disk
+   path = /disk
+   read only = no
+   browsable = yes
+EOF
+sudo service smbd restart
+```
+
+Set password:
+```
+sudo smbpasswd -a grabka
+```
+
 ## Docker
 [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)
-
 
 ## Portainer
 [Install Portainer CE with Docker on Linux](https://docs.portainer.io/start/install-ce/server/docker/linux)
@@ -95,3 +115,4 @@ Use the following configuration:
 [Configure tailnet's DNS](https://tailscale.com/kb/1114/pi-hole)
 
 [Set up a subnet router](https://tailscale.com/kb/1019/subnets)
+
