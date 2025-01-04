@@ -76,6 +76,7 @@ sudo crontab -e
 
 Use the following configuration:
 ```
+30 6 * * * /opt/backup/rsync-homepage 2>&1 | /usr/bin/logger -t BACKUP
 45 6 * * * /opt/backup/rsync-docker 2>&1 | /usr/bin/logger -t BACKUP
 0 7 * * * /opt/backup/rsync-disk 2>&1 | /usr/bin/logger -t BACKUP
 ```
