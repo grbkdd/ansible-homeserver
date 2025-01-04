@@ -116,3 +116,5 @@ sudo smbpasswd -a grabka
 
 [Set up a subnet router](https://tailscale.com/kb/1019/subnets)
 
+## NextDNS
+[Install NextDNS](https://github.com/nextdns/nextdns/wiki/Debian-Based-Distribution)
