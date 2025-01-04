@@ -13,7 +13,7 @@ echo "Loading configuration..."
 source "$(dirname $0)/.env"
 
 echo "Starting rsync backup of HDD..."
-sshpass -p "$RSYNC_PASSWORD" rsync -e ssh -avhH --delete --progress --exclude /disk/Downloads/ /disk/ rsync@cocoberry.local::NetBackup/zapodaj/
+sshpass -p "$RSYNC_PASSWORD" rsync -e ssh -avhH --delete --progress --exclude /Downloads/ /disk/ rsync@cocoberry.local::NetBackup/zapodaj/
 
 if [ "$?" -eq 0 ];
 then
