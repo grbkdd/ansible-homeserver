@@ -1,0 +1,38 @@
+---
+- name: Install sshpass
+  apt:
+    name: sshpass
+    state: present
+
+- name: Create backup directory
+  file:
+    path: /opt/backup
+    state: directory
+    mode: '0755'
+
+- name: Copy backup scripts
+  copy:
+    src: "{{ item }}"
+    dest: /opt/backup/
+    mode: '0755'
+  with_items:
+    - rsync-homepage
+    - rsync-docker
+    - rsync-disk
+
+- name: Configure backup environment
+  template:
+    src: dotenv.j2
+    dest: /opt/backup/.env
+    mode: '0600'
+
+- name: Setup backup cron jobs
+  cron:
+    name: "{{ item.name }}"
+    minute: "{{ item.minute }}"
+    hour: "{{ item.hour }}"
+    job: "{{ item.job }}"
+  with_items:
+    - { name: "Homepage backup", minute: "30", hour: "6", job: "/opt/backup/rsync-homepage 2>&1 | /usr/bin/logger -t BACKUP" }
+    - { name: "Docker backup", minute: "45", hour: "6", job: "/opt/backup/rsync-docker 2>&1 | /usr/bin/logger -t BACKUP" }
+    - { name: "Disk backup", minute: "0", hour: "7", job: "/opt/backup/rsync-disk 2>&1 | /usr/bin/logger -t BACKUP" }

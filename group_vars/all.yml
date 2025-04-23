@@ -1,0 +1,4 @@
+pushover_user_token: "{{ lookup('env', 'PUSHOVER_USER_TOKEN') }}"
+pushover_app_token: "{{ lookup('env', 'PUSHOVER_APP_TOKEN') }}"
+rsync_password: "{{ lookup('env', 'RSYNC_PASSWORD') }}"
+samba_password: "{{ lookup('env', 'SAMBA_PASSWORD') }}"

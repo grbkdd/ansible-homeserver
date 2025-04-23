@@ -1,0 +1,8 @@
+---
+- name: Configure homelab server
+  hosts: homelab
+  become: yes
+  roles:
+    - system
+    - backup
+    - samba
