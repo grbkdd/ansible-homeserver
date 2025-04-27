@@ -1,0 +1,34 @@
+---
+- name: Disable DNSStubListener
+  copy:
+    src: disable-stub.conf
+    dest: /etc/systemd/resolved.conf.d/
+    mode: '0644'
+  notify: Reload systemd-resolved
+
+- name: Download NextDNS GPG key
+  get_url:
+    url: https://repo.nextdns.io/nextdns.gpg
+    dest: /usr/share/keyrings/nextdns.gpg
+    mode: '0644'
+
+- name: Add NextDNS repository
+  apt_repository:
+    repo: "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main"
+    filename: nextdns
+    state: present
+
+- name: Install NextDNS
+  apt:
+    name: nextdns
+    state: present
+    update_cache: yes
+
+- name: Copy nextdns.conf to /etc
+  copy:
+    src: nextdns.conf
+    dest: /etc/
+    mode: '0644'
+
+- name: Restart NextDNS service
+  command: nextdns restart
