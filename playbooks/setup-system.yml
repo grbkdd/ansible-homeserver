@@ -1,0 +1,27 @@
+---
+- name: Set up system
+  hosts: homelab
+  become: yes
+  tasks:
+    - name: Add Backports main repository
+      apt_repository:
+        repo: deb https://deb.debian.org/debian/ bookworm-backports main contrib non-free
+        filename: backports
+        state: present
+    - name: Add Backports source repository
+      apt_repository:
+        repo: deb-src https://deb.debian.org/debian/ bookworm-backports main contrib non-free
+        filename: backports
+        state: present
+    - name: Install basic packages
+      apt:
+        name:
+          - avahi-daemon
+          - man-db
+          - vim
+        state: present
+        update_cache: true
+    - name: Configure default editor
+      alternatives:
+        name: editor
+        path: /usr/bin/vim.basic

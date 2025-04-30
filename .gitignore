@@ -1,4 +1,4 @@
 .env
 .idea
-roles/geerlingguy.docker
-roles/artis3n.tailscale
+.galaxy-roles
+.galaxy-collections

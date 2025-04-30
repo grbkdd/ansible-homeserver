@@ -1,0 +1,9 @@
+---
+- name: Upgrade system
+  hosts: homelab
+  become: yes
+  tasks:
+    - name: Upgrade all packages
+      apt:
+        upgrade: dist
+        update_cache: yes

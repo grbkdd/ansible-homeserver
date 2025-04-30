@@ -1,0 +1,25 @@
+---
+- name: Set up SSH
+  hosts: homelab
+  become: yes
+  tasks:
+    - name: Configure passwordless sudo
+      copy:
+        content: '{{ ansible_user }} ALL=(ALL) NOPASSWD: ALL'
+        dest: '/etc/sudoers.d/{{ ansible_user }}'
+        mode: 0440
+    - name: Disable root access over SSH
+      copy:
+        content: "PermitRootLogin no\n"
+        dest: /etc/ssh/sshd_config.d/noroot.conf
+      notify: restart sshd
+    - name: Disable password authentication over SSH
+      copy:
+        content: "PasswordAuthentication no\nChallengeResponseAuthentication no\n"
+        dest: /etc/ssh/sshd_config.d/nopassword.conf
+      notify: restart sshd
+  handlers:
+    - name: restart sshd
+      systemd:
+        name: sshd
+        state: restarted

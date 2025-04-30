@@ -1,4 +1,4 @@
 ---
 homelab:
     hosts:
-        zapodaj.grabda.dev
+        zapodaj.local
