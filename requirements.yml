@@ -2,3 +2,5 @@
 roles:
   - name: geerlingguy.docker
   - name: artis3n.tailscale
+collections:
+  - name: hifis.toolkit

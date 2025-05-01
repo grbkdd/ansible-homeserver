@@ -3,7 +3,6 @@
   hosts: homelab
   become: yes
   roles:
-    - role: system
     - role: backup
       vars:
         rsync_password: "{{ lookup('env', 'RSYNC_PASSWORD') }}"

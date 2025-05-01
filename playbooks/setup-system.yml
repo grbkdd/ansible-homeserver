@@ -13,10 +13,11 @@
         repo: deb-src https://deb.debian.org/debian/ bookworm-backports main contrib non-free
         filename: backports
         state: present
-    - name: Install basic packages
+    - name: Install packages
       apt:
         name:
           - avahi-daemon
+          - bsd-mailx
           - man-db
           - vim
         state: present
@@ -25,3 +26,10 @@
       alternatives:
         name: editor
         path: /usr/bin/vim.basic
+    - name: Configure unattended upgrades
+      include_role:
+        name: hifis.toolkit.unattended_upgrades
+      vars:
+        unattended_automatic_reboot: true
+        unattended_mail: '8wdpoixbwk@pomail.net'
+        unattended_mail_report: always

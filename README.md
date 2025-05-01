@@ -9,13 +9,17 @@
 ```shell
   sudo apt install python3 python3-pip python3-pexpect
 ```
+* Copy SSH keys
+```shell
+  ssh-copy-id zapodaj.local
+```
 
 ## Ansible playbooks
 * Set up SSH
 ```shell
-  ansible-playbook -u grabka -K playbooks/setup-ssh.yml
+  ansible-playbook -K playbooks/setup-ssh.yml
 ```
-*This playbook needs to be executed first as it enables passwordless sudo for the admin user*
+*This playbook should be executed first as it enables passwordless sudo for the user.*
 * Upgrade system
 ```shell
   ansible-playbook playbooks/upgrade-system.yml
@@ -31,4 +35,9 @@
 *During execution of this playbook the server will get restarted. Follow the instructions [here](https://github.com/dell/dkms#secure-boot) to complete MOK key enrollment.*
 
 ## TODO
-* Enable unattended upgrades
+* Create playbook for backups
+* Create playbook for Samba
+* Create playbook for Docker
+* Create playbook for Tailscale
+* Create playbook for NextDNS
+* Set up Mailrise for Pushover notifications

@@ -1,0 +1,5 @@
+homelab:
+  hosts:
+    zapodaj:
+      ansible_host: zapodaj.local
+      ansible_user: grabka
