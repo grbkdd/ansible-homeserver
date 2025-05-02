@@ -19,6 +19,8 @@
           - avahi-daemon
           - bsd-mailx
           - man-db
+          - net-tools
+          - rsync
           - vim
         state: present
         update_cache: true

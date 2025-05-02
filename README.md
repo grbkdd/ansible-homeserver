@@ -49,9 +49,13 @@
 ```shell
   ansible-playbook playbooks/setup-tailscale.yml
 ```
+* Set up NextDNS
+```shell
+  ansible-playbook playbooks/setup-nextdns.yml
+```
 
 ## TODO
-* Create playbook for NextDNS
+* Test all playbooks thoroughly
 * Migrate Docker containers
 * Set up Mailrise for Pushover notifications
 * Use Ansible Vault for secrets
