@@ -26,7 +26,7 @@
     dest: /opt/backup/.env
     mode: '0600'
 
-- name: Setup backup cron jobs
+- name: Set up backup cron jobs
   cron:
     name: "{{ item.name }}"
     minute: "{{ item.minute }}"

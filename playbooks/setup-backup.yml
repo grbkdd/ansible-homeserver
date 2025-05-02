@@ -1,0 +1,12 @@
+---
+- name: Set up backup
+  hosts: homelab
+  become: yes
+  tasks:
+    - name: Set up backup tasks
+      include_role:
+        name: backup
+      vars:
+        rsync_password: "{{ lookup('env', 'RSYNC_PASSWORD') }}"
+        pushover_user_token: "{{ lookup('env', 'PUSHOVER_USER_TOKEN') }}"
+        pushover_app_token: "{{ lookup('env', 'PUSHOVER_APP_TOKEN') }}"

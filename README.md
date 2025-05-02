@@ -15,7 +15,7 @@
 ```
 
 ## Ansible playbooks
-* Set up SSH
+* Set up access
 ```shell
   ansible-playbook -K playbooks/setup-access.yml
 ```
@@ -33,11 +33,25 @@
   ansible-playbook playbooks/setup-zfs.yml
 ```
 *During execution of this playbook the server will get restarted. Follow the instructions [here](https://github.com/dell/dkms#secure-boot) to complete MOK key enrollment.*
+* Set up Samba
+```shell
+  ansible-playbook playbooks/setup-samba.yml
+```
+* Set up backup
+```shell
+  ansible-playbook playbooks/setup-backup.yml
+```
+* Set up Docker
+```shell
+  ansible-playbook playbooks/setup-docker.yml
+```
+* Set up Tailscale
+```shell
+  ansible-playbook playbooks/setup-tailscale.yml
+```
 
 ## TODO
-* Create playbook for backups
-* Create playbook for Docker
-* Create playbook for Tailscale
 * Create playbook for NextDNS
+* Migrate Docker containers
 * Set up Mailrise for Pushover notifications
 * Use Ansible Vault for secrets

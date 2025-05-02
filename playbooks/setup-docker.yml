@@ -1,0 +1,11 @@
+---
+- name: Set up Docker
+  hosts: homelab
+  become: yes
+  tasks:
+    - name: Install Docker
+      include_role:
+        name: geerlingguy.docker
+      vars:
+        docker_users:
+          - "{{ ansible_user }}"
