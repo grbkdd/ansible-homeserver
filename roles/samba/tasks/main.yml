@@ -10,7 +10,7 @@
     path: /etc/samba/smb.conf
     block: |
       {{ lookup('file', 'templates/smb.conf.j2') }}
-  notify: Restart samba
+  notify: Restart smbd
 
 - name: Fetch current Samba users
   command: pdbedit -L

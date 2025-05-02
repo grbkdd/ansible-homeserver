@@ -1,5 +1,5 @@
 ---
-- name: Set up SSH
+- name: Set up access
   hosts: homelab
   become: yes
   tasks:
@@ -12,14 +12,14 @@
       copy:
         content: "PermitRootLogin no\n"
         dest: /etc/ssh/sshd_config.d/noroot.conf
-      notify: restart sshd
+      notify: Restart sshd
     - name: Disable password authentication over SSH
       copy:
         content: "PasswordAuthentication no\nChallengeResponseAuthentication no\n"
         dest: /etc/ssh/sshd_config.d/nopassword.conf
-      notify: restart sshd
+      notify: Restart sshd
   handlers:
-    - name: restart sshd
+    - name: Restart sshd
       systemd:
         name: sshd
         state: restarted

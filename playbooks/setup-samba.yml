@@ -1,0 +1,10 @@
+---
+- name: Set up Samba
+  hosts: homelab
+  become: yes
+  tasks:
+    - name: Install and configure Samba
+      include_role:
+        name: samba
+      vars:
+        samba_password: "{{ lookup('env', 'SAMBA_PASSWORD') }}"

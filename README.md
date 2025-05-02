@@ -17,7 +17,7 @@
 ## Ansible playbooks
 * Set up SSH
 ```shell
-  ansible-playbook -K playbooks/setup-ssh.yml
+  ansible-playbook -K playbooks/setup-access.yml
 ```
 *This playbook should be executed first as it enables passwordless sudo for the user.*
 * Upgrade system
@@ -36,8 +36,8 @@
 
 ## TODO
 * Create playbook for backups
-* Create playbook for Samba
 * Create playbook for Docker
 * Create playbook for Tailscale
 * Create playbook for NextDNS
 * Set up Mailrise for Pushover notifications
+* Use Ansible Vault for secrets
