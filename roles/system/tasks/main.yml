@@ -1,13 +1,13 @@
 ---
 - name: Update apt cache
   ansible.builtin.apt:
-    update_cache: yes
+    update_cache: true
     cache_valid_time: 3600
   register: result
   until: result is succeeded
 - name: Upgrade all packages
   ansible.builtin.apt:
-    upgrade: yes
+    upgrade: true
     state: latest
 - name: Install packages
   ansible.builtin.apt:
@@ -22,6 +22,7 @@
   ansible.builtin.copy:
     src: motd.txt
     dest: /etc/motd
+    mode: "544"
 - name: Configure default editor
   community.general.alternatives:
     name: editor
