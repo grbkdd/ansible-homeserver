@@ -3,6 +3,6 @@
   hosts: homelab
   become: true
   tasks:
-    - name: Set up sudo
+    - name: Configure passwordless sudo
       ansible.builtin.include_role:
         name: sudo
