@@ -1,17 +1,18 @@
 ---
 - name: Set up system
   hosts: homelab
-  become: yes
+  become: true
   tasks:
     - name: Pin ZFS package version
-      copy:
+      ansible.builtin.copy:
         dest: /etc/apt/preferences.d/90_zfs
         content: |
           Package: src:zfs-linux
           Pin: release n=bookworm-backports
           Pin-Priority: 990
+        mode: '0544'
     - name: Install ZFS support
-      apt:
+      ansible.builtin.apt:
         name:
           - linux-headers-{{ ansible_kernel }}
           - dkms
@@ -19,24 +20,28 @@
         state: present
         update_cache: true
     - name: Check if DKMS key has been loaded to MOK
-      shell: mokutil --list-enrolled | grep -q "CN=DKMS module signing key"
+      ansible.builtin.shell:
+        cmd: |
+          set -o pipefail
+          mokutil --list-enrolled | grep -q "CN=DKMS module signing key"
       register: dkms_key_check
       failed_when: false
       changed_when: false
     - name: Import DKMS key to MOK
-      expect:
+      ansible.builtin.expect:
         command: mokutil --import /var/lib/dkms/mok.pub
         responses:
           'input password': "abc"
           'input password again': "abc"
       when: dkms_key_check.rc != 0
     - name: Reboot the system
-      shell: reboot
+      ansible.builtin.reboot:
+        msg: "Rebooting machine"
       async: 1
       poll: 0
       when: dkms_key_check.rc != 0
     - name: Wait for reboot to complete
-      wait_for_connection:
+      ansible.builtin.wait_for_connection:
         connect_timeout: 20
         sleep: 5
         delay: 10
@@ -47,10 +52,11 @@
         name: zfs
         state: present
     - name: Check existing ZFS pools
-      shell: zpool list -H
+      ansible.builtin.command: zpool list -H
       register: existing_pools
       changed_when: false
       failed_when: false
     - name: Import ZFS pools
-      shell: zpool import -fa
+      ansible.builtin.command: zpool import -fa
       when: existing_pools.stdout == ""
+      changed_when: rc == 0

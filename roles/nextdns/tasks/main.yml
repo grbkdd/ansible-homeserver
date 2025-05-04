@@ -1,35 +1,31 @@
----
 - name: Disable DNSStubListener
-  copy:
+  ansible.builtin.copy:
     src: disable-stub.conf
     dest: /etc/systemd/resolved.conf.d/
     mode: '0644'
   notify: Reload systemd-resolved
   when: ansible_distribution == "Ubuntu"
-
 - name: Download NextDNS GPG key
-  get_url:
+  ansible.builtin.get_url:
     url: https://repo.nextdns.io/nextdns.gpg
     dest: /usr/share/keyrings/nextdns.gpg
     mode: '0644'
-
 - name: Add NextDNS repository
-  apt_repository:
+  ansible.builtin.apt_repository:
     repo: "deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main"
     filename: nextdns
     state: present
-
 - name: Install NextDNS
-  apt:
+  ansible.builtin.apt:
     name: nextdns
     state: present
-    update_cache: yes
-
+    update_cache: true
 - name: Copy nextdns.conf to /etc
-  copy:
+  ansible.builtin.copy:
     src: nextdns.conf
     dest: /etc/
     mode: '0644'
-
 - name: Restart NextDNS service
-  command: nextdns restart
+  ansible.builtin.command:
+    cmd: nextdns restart
+  changed_when: true

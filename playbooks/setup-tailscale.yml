@@ -1,7 +1,7 @@
 ---
 - name: Set up Tailscale
   hosts: homelab
-  become: yes
+  become: true
   tasks:
     - name: Enable IPv4 forwarding
       ansible.posix.sysctl:
@@ -18,7 +18,7 @@
         state: present
         reload: true
     - name: Install Tailscale
-      include_role:
+      ansible.builtin.include_role:
         name: artis3n.tailscale
       vars:
         tailscale_authkey: "{{ lookup('env', 'TAILSCALE_KEY') }}"

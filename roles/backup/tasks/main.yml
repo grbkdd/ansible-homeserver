@@ -1,17 +1,14 @@
----
 - name: Install sshpass
-  apt:
+  ansible.builtin.apt:
     name: sshpass
     state: present
-
 - name: Create backup directory
-  file:
+  ansible.builtin.file:
     path: /opt/backup
     state: directory
     mode: '0755'
-
 - name: Copy backup scripts
-  copy:
+  ansible.builtin.copy:
     src: "{{ item }}"
     dest: /opt/backup/
     mode: '0755'
@@ -19,15 +16,13 @@
     - rsync-homepage
     - rsync-docker
     - rsync-disk
-
 - name: Configure backup environment
-  template:
+  ansible.builtin.template:
     src: dotenv.j2
     dest: /opt/backup/.env
     mode: '0600'
-
 - name: Set up backup cron jobs
-  cron:
+  ansible.builtin.cron:
     name: "{{ item.name }}"
     minute: "{{ item.minute }}"
     hour: "{{ item.hour }}"

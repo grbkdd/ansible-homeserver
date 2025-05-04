@@ -1,8 +1,8 @@
 ---
 - name: Set up NextDNS
   hosts: homelab
-  become: yes
+  become: true
   tasks:
     - name: Install and configure NextDNS
-      include_role:
+      ansible.builtin.include_role:
         name: nextdns

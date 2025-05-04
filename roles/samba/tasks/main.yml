@@ -1,25 +1,23 @@
----
 - name: Install Samba
-  apt:
+  ansible.builtin.apt:
     name: samba
     state: present
-
 - name: Configure Samba
-  blockinfile:
-    backup: yes
+  ansible.builtin.blockinfile:
+    backup: true
     path: /etc/samba/smb.conf
     block: |
-      {{ lookup('file', 'templates/smb.conf.j2') }}
+      {{ lookup('ansible.builtin.file', 'templates/smb.conf.j2') }}
   notify: Restart smbd
-
 - name: Fetch current Samba users
-  command: pdbedit -L
+  ansible.builtin.command: pdbedit -L
   register: pdb_users
-
+  changed_when: false
 - name: Set Samba password
-  command:
+  ansible.builtin.command:
     cmd: 'smbpasswd -s -a {{ ansible_user }}'
     stdin: |
       {{ samba_password }}
       {{ samba_password }}
   when: pdb_users.stdout.find(ansible_user) == -1
+  changed_when: rc == 0

@@ -3,4 +3,6 @@ roles:
   - name: geerlingguy.docker
   - name: artis3n.tailscale
 collections:
+  - name: ansible.posix
+  - name: community.general
   - name: hifis.toolkit

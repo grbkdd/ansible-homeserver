@@ -1,0 +1,4 @@
+---
+exclude_paths:
+  - .galaxy-collections/
+  - .galaxy-roles/

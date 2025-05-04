@@ -1,9 +1,9 @@
 ---
 - name: Upgrade system
   hosts: homelab
-  become: yes
+  become: true
   tasks:
     - name: Upgrade all packages
-      apt:
+      ansible.builtin.apt:
         upgrade: dist
-        update_cache: yes
+        update_cache: true

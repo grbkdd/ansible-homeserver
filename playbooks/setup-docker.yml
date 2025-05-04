@@ -1,10 +1,10 @@
 ---
 - name: Set up Docker
   hosts: homelab
-  become: yes
+  become: true
   tasks:
     - name: Install Docker
-      include_role:
+      ansible.builtin.include_role:
         name: geerlingguy.docker
       vars:
         docker_users:
