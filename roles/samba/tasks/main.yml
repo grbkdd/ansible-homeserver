@@ -15,7 +15,7 @@
   changed_when: false
 - name: Set Samba password
   ansible.builtin.command:
-    cmd: 'smbpasswd -s -a {{ ansible_user }}'
+    cmd: smbpasswd -s -a {{ ansible_user }}
     stdin: |
       {{ samba_password }}
       {{ samba_password }}

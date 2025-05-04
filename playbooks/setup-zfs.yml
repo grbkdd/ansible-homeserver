@@ -10,7 +10,7 @@
           Package: src:zfs-linux
           Pin: release n=bookworm-backports
           Pin-Priority: 990
-        mode: '0544'
+        mode: "0544"
     - name: Install ZFS support
       ansible.builtin.apt:
         name:
@@ -31,12 +31,12 @@
       ansible.builtin.expect:
         command: mokutil --import /var/lib/dkms/mok.pub
         responses:
-          'input password': "abc"
-          'input password again': "abc"
+          "input password": abc
+          "input password again": abc
       when: dkms_key_check.rc != 0
     - name: Reboot the system
       ansible.builtin.reboot:
-        msg: "Rebooting machine"
+        msg: Rebooting machine
       async: 1
       poll: 0
       when: dkms_key_check.rc != 0

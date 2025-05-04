@@ -7,22 +7,22 @@
       ansible.builtin.copy:
         content: |
           {{ ansible_user }} ALL=(ALL) NOPASSWD: ALL
-        dest: '/etc/sudoers.d/{{ ansible_user }}'
-        mode: '0440'
+        dest: /etc/sudoers.d/{{ ansible_user }}
+        mode: "0440"
     - name: Disable root access over SSH
       ansible.builtin.copy:
         content: |
           PermitRootLogin no
-        dest: '/etc/ssh/sshd_config.d/noroot.conf'
-        mode: '0440'
+        dest: /etc/ssh/sshd_config.d/noroot.conf
+        mode: "0440"
       notify: Restart sshd
     - name: Disable password authentication over SSH
       ansible.builtin.copy:
         content: |
           PasswordAuthentication no
           ChallengeResponseAuthentication no
-        dest: '/etc/ssh/sshd_config.d/nopassword.conf'
-        mode: '0440'
+        dest: /etc/ssh/sshd_config.d/nopassword.conf
+        mode: "0440"
       notify: Restart sshd
   handlers:
     - name: Restart sshd
