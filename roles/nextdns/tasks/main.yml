@@ -1,11 +1,4 @@
 ---
-- name: Disable DNSStubListener
-  ansible.builtin.copy:
-    src: disable-stub.conf
-    dest: /etc/systemd/resolved.conf.d/
-    mode: "0644"
-  notify: Reload systemd-resolved
-  when: ansible_distribution == "Ubuntu"
 - name: Download NextDNS GPG key
   ansible.builtin.get_url:
     url: https://repo.nextdns.io/nextdns.gpg
