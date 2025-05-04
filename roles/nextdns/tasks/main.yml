@@ -1,3 +1,4 @@
+---
 - name: Disable DNSStubListener
   ansible.builtin.copy:
     src: disable-stub.conf

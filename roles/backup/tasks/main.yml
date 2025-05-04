@@ -1,3 +1,4 @@
+---
 - name: Install sshpass
   ansible.builtin.apt:
     name: sshpass
