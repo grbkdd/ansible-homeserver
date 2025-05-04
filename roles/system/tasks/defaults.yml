@@ -1,5 +1,0 @@
----
-- name: Configure default editor
-  community.general.alternatives:
-    name: editor
-    path: /usr/bin/vim.basic

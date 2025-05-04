@@ -3,7 +3,7 @@
   ansible.builtin.copy:
     content: |
       PermitRootLogin no
-    dest: /etc/ssh/sshd_config.d/noroot.conf
+    dest: /etc/ssh/sshd_config.d/10-no-root.conf
     mode: "0440"
   notify: Restart sshd
 - name: Disable password authentication over SSH
@@ -11,6 +11,6 @@
     content: |
       PasswordAuthentication no
       ChallengeResponseAuthentication no
-    dest: /etc/ssh/sshd_config.d/nopassword.conf
+    dest: /etc/ssh/sshd_config.d/10-no-password.conf
     mode: "0440"
   notify: Restart sshd

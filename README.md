@@ -81,10 +81,10 @@ Use the following command to execute a playbook:
 |-------------------------|------------------------------------------------|-----------------------------------------------------------------------------|
 | playbooks/sudo.yml      | Enable passwordless sudo for default user.     | Execute first. Use "--ask-become-pass" or "-K" to provide password to sudo. |
 | playbooks/zfs.yml       | Install ZFS support and import existing pools. | Execute second to set up storage.                                           |
-| playbooks/system.yml    | Install and configure basics.                  |                                                                             |
-| playbooks/docker.yml    | Install Docker.                                |                                                                             |
+| playbooks/system.yml    | Configure system.                              |                                                                             |
+| playbooks/backup.yml    | Configure backup.                              |                                                                             |
 | playbooks/samba.yml     | Install and configure Samba.                   |                                                                             |
 | playbooks/tailscale.yml | Install and configure Tailscale.               |                                                                             |
 | playbooks/nextdns.yml   | Install and configure NextDNS.                 |                                                                             |
-| playbooks/backup.yml    | Configure backup.                              |                                                                             |
+| playbooks/docker.yml    | Install Docker.                                |                                                                             |
 

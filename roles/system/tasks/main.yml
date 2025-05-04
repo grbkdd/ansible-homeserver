@@ -1,11 +1,35 @@
 ---
-- name: Configure sshd
-  ansible.builtin.include_tasks: sshd.yml
-- name: Add extra repositories
-  ansible.builtin.include_tasks: repos.yml
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  register: result
+  until: result is succeeded
+- name: Upgrade all packages
+  ansible.builtin.apt:
+    upgrade: yes
+    state: latest
 - name: Install packages
-  ansible.builtin.include_tasks: packages.yml
-- name: Configure defaults
-  ansible.builtin.include_tasks: defaults.yml
+  ansible.builtin.apt:
+    name:
+      - avahi-daemon
+      - man-db
+      - net-tools
+      - vim
+    state: present
+    update_cache: true
+- name: Set login banner
+  ansible.builtin.copy:
+    src: motd.txt
+    dest: /etc/motd
+- name: Configure default editor
+  community.general.alternatives:
+    name: editor
+    path: /usr/bin/vim.basic
 - name: Configure unattended upgrades
-  ansible.builtin.include_tasks: upgrades.yml
+  ansible.builtin.include_role:
+    name: hifis.toolkit.unattended_upgrades
+  vars:
+    unattended_automatic_reboot: true
+    unattended_mail: "{{ system_unattended_upgrades_email }}"
+    unattended_mail_report: always

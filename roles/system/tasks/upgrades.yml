@@ -1,8 +1,0 @@
----
-- name: Configure unattended upgrades
-  ansible.builtin.include_role:
-    name: hifis.toolkit.unattended_upgrades
-  vars:
-    unattended_automatic_reboot: true
-    unattended_mail: 8wdpoixbwk@pomail.net
-    unattended_mail_report: always

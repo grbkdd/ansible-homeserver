@@ -3,6 +3,9 @@
   hosts: homelab
   become: true
   tasks:
-    - name: Set up system
+    - name: Set up sshd
+      ansible.builtin.include_role:
+        name: sshd
+    - name: Set up system basics
       ansible.builtin.include_role:
         name: system
