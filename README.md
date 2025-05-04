@@ -2,26 +2,74 @@
 
 ## System installation
 
-* Install Debian
-    * Disable root account.
-    * Set up LVM with default partitioning scheme.
-    * Install only required packages + SSH server.
+Install Ubuntu Server following the steps below.
 
-* Install Python
+### Ubuntu Server installation steps
+
+* Language
+    * Select "English"
+* Keyboard configuration
+    * Leave defaults
+* Type of installation
+    * Select "Ubuntu Server (minimized)"
+    * Enable "Search for third-party drivers"
+* Network configuration
+    * Review and leave defaults
+* Proxy configuration
+    * Leave blank
+* Ubuntu archive mirror configuration
+    * Review and leave defaults
+* Guided storage configuration
+    * Select "Use an entire disk"
+    * Disable "Set up this disk as an LVM group"
+* Storage configuration
+    * Review and leave defaults
+    * Select "Continue" when asked to confirm
+* Profile configuration
+    * Provide admin user details
+    * Provide server's name
+* Ubuntu Pro
+    * Select "Skip for now"
+* SSH configuration
+    * Enable "Install OpenSSH server"
+* Third-party drivers
+    * Install, if any
+* Featured server snaps
+    * Skip installing snaps for now
+
+### Post-install instructions
+
+Copy SSH keys to the machine.
 
 ```shell
-  sudo apt install python3 python3-pip python3-pexpect
+  ssh-copy-id <hostname>
 ```
 
-* Copy SSH keys
+Login over SSH.
 
 ```shell
-  ssh-copy-id zapodaj.local
+  ssh <hostname>
+```
+
+Upgrade packages on the system to the latest version.
+
+```shell
+  sudo apt update && sudo apt dist-upgrade
+```
+
+Reboot
+
+```shell
+  sudo reboot
 ```
 
 ## Ansible
 
-Configure the system using Ansible. Use the following command to execute a playbook:
+Configure the system using Ansible.
+
+### Command
+
+Use the following command to execute a playbook:
 
 ```shell
   ansible-playbook playbooks/<playbook>.yml
@@ -29,21 +77,14 @@ Configure the system using Ansible. Use the following command to execute a playb
 
 ### Playbooks
 
-| Playbook                      | Description                                    | Comments                                                                                                                                            |
-|-------------------------------|------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| playbooks/setup-sudo.yml      | Enable passwordless sudo for the user.         | Execute this playbook first. Use "--ask-become-pass" or "-K" option to provide password to sudo.                                                    |
-| playbooks/upgrade-system.yml  | Upgrade all packages in the system.            | Equivalent of "apt update && apt dist-upgrade".                                                                                                     |
-| playbooks/setup-system.yml    | Install and configure basics.                  |                                                                                                                                                     |
-| playbooks/setup-zfs.yml       | Install ZFS support and import existing pools. | During execution the server will get rebooted. Follow instructions [here](https://github.com/dell/dkms#secure-boot) to complete MOK key enrollment. |
-| playbooks/setup-backup.yml    | Configure backup.                              |                                                                                                                                                     |
-| playbooks/setup-docker.yml    | Install Docker.                                |                                                                                                                                                     |
-| playbooks/setup-samba.yml     | Install and configure Samba.                   |                                                                                                                                                     |
-| playbooks/setup-tailscale.yml | Install and configure Tailscale.               |                                                                                                                                                     |
-| playbooks/setup-nextdns.yml   | Install and configure NextDNS.                 |                                                                                                                                                     |
+| Playbook                | Description                                    | Comments                                                                    |
+|-------------------------|------------------------------------------------|-----------------------------------------------------------------------------|
+| playbooks/sudo.yml      | Enable passwordless sudo for default user.     | Execute first. Use "--ask-become-pass" or "-K" to provide password to sudo. |
+| playbooks/zfs.yml       | Install ZFS support and import existing pools. | Execute second to set up storage.                                           |
+| playbooks/system.yml    | Install and configure basics.                  |                                                                             |
+| playbooks/docker.yml    | Install Docker.                                |                                                                             |
+| playbooks/samba.yml     | Install and configure Samba.                   |                                                                             |
+| playbooks/tailscale.yml | Install and configure Tailscale.               |                                                                             |
+| playbooks/nextdns.yml   | Install and configure NextDNS.                 |                                                                             |
+| playbooks/backup.yml    | Configure backup.                              |                                                                             |
 
-## TODO
-
-* Review and test all playbooks thoroughly
-* Migrate Docker containers
-* Set up Mailrise for Pushover notifications
-* Use Ansible Vault for secrets
