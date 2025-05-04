@@ -3,7 +3,7 @@
   hosts: homelab
   become: true
   tasks:
-    - name: Set up backup tasks
+    - name: Set up backup
       ansible.builtin.include_role:
         name: backup
       vars:

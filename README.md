@@ -29,21 +29,20 @@ Configure the system using Ansible. Use the following command to execute a playb
 
 ### Playbooks
 
-| Playbook                      | Description                                                                                               | Comments                                                                                                                                            |
-|-------------------------------|-----------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
-| playbooks/setup-access.yml    | Enable passwordless sudo for the user, disable SSH access for root, and enforce key-based authentication. | This should be executed first. Use "--ask-become-pass" or "-K" option with ansible-playbook command to provide password to sudo.                    |
-| playbooks/upgrade-system.yml  | Upgrade all packages in the system. Equivalent of "apt update && apt dist-upgrade".                       |                                                                                                                                                     |
-| playbooks/setup-system.yml    | Install and configure basics.                                                                             |
-| playbooks/setup-zfs.yml       | Install ZFS support and import existing pools.                                                            | During execution the server will get rebooted. Follow instructions [here](https://github.com/dell/dkms#secure-boot) to complete MOK key enrollment. |
-| playbooks/setup-backup.yml    | Configure backups e.g. cron jobs.                                                                         |                                                                                                                                                     |
-| playbooks/setup-docker.yml    | Install Docker.                                                                                           |                                                                                                                                                     |
-| playbooks/setup-samba.yml     | Install and configure Samba.                                                                              |                                                                                                                                                     |
-| playbooks/setup-tailscale.yml | Install and configure Tailscale.                                                                          |                                                                                                                                                     |
-| playbooks/setup-nextdns.yml   | Install and configure NextDNS.                                                                            |                                                                                                                                                     |
+| Playbook                      | Description                                    | Comments                                                                                                                                            |
+|-------------------------------|------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
+| playbooks/setup-sudo.yml      | Enable passwordless sudo for the user.         | Execute this playbook first. Use "--ask-become-pass" or "-K" option to provide password to sudo.                                                    |
+| playbooks/upgrade-system.yml  | Upgrade all packages in the system.            | Equivalent of "apt update && apt dist-upgrade".                                                                                                     |
+| playbooks/setup-system.yml    | Install and configure basics.                  |                                                                                                                                                     |
+| playbooks/setup-zfs.yml       | Install ZFS support and import existing pools. | During execution the server will get rebooted. Follow instructions [here](https://github.com/dell/dkms#secure-boot) to complete MOK key enrollment. |
+| playbooks/setup-backup.yml    | Configure backup.                              |                                                                                                                                                     |
+| playbooks/setup-docker.yml    | Install Docker.                                |                                                                                                                                                     |
+| playbooks/setup-samba.yml     | Install and configure Samba.                   |                                                                                                                                                     |
+| playbooks/setup-tailscale.yml | Install and configure Tailscale.               |                                                                                                                                                     |
+| playbooks/setup-nextdns.yml   | Install and configure NextDNS.                 |                                                                                                                                                     |
 
 ## TODO
 
-* Read about good practices for Ansible
 * Review and test all playbooks thoroughly
 * Migrate Docker containers
 * Set up Mailrise for Pushover notifications

@@ -1,0 +1,11 @@
+---
+- name: Add Backports main repository
+  ansible.builtin.apt_repository:
+    repo: deb https://deb.debian.org/debian/ bookworm-backports main contrib non-free
+    filename: backports
+    state: present
+- name: Add Backports source repository
+  ansible.builtin.apt_repository:
+    repo: deb-src https://deb.debian.org/debian/ bookworm-backports main contrib non-free
+    filename: backports
+    state: present

@@ -1,0 +1,7 @@
+---
+- name: Configure passwordless sudo
+  ansible.builtin.copy:
+    content: |
+      {{ ansible_user }} ALL=(ALL) NOPASSWD: ALL
+    dest: /etc/sudoers.d/{{ ansible_user }}
+    mode: "0440"

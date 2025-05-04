@@ -3,23 +3,12 @@
   hosts: homelab
   become: true
   tasks:
-    - name: Enable IPv4 forwarding
-      ansible.posix.sysctl:
-        name: net.ipv4.ip_forward
-        value: "1"
-        sysctl_file: /etc/sysctl.d/99-tailscale.conf
-        state: present
-        reload: true
-    - name: Enable IPv6 forwarding
-      ansible.posix.sysctl:
-        name: net.ipv6.conf.all.forwarding
-        value: "1"
-        sysctl_file: /etc/sysctl.d/99-tailscale.conf
-        state: present
-        reload: true
     - name: Install Tailscale
       ansible.builtin.include_role:
         name: artis3n.tailscale
       vars:
         tailscale_authkey: "{{ lookup('env', 'TAILSCALE_KEY') }}"
         tailscale_args: --advertise-routes=192.168.1.0/24 --accept-dns=false
+    - name: Enable IP forwarding
+      ansible.builtin.include_role:
+        name: tailscale

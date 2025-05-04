@@ -1,0 +1,12 @@
+---
+- name: Install packages
+  ansible.builtin.apt:
+    name:
+      - avahi-daemon
+      - bsd-mailx
+      - man-db
+      - net-tools
+      - rsync
+      - vim
+    state: present
+    update_cache: true

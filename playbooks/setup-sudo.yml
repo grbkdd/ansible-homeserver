@@ -1,8 +1,8 @@
 ---
-- name: Set up ZFS
+- name: Set up sudo
   hosts: homelab
   become: true
   tasks:
-    - name: Set up ZFS
+    - name: Set up sudo
       ansible.builtin.include_role:
-        name: zfs
+        name: sudo

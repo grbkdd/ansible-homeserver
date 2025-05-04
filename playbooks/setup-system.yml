@@ -3,35 +3,6 @@
   hosts: homelab
   become: true
   tasks:
-    - name: Add Backports main repository
-      ansible.builtin.apt_repository:
-        repo: deb https://deb.debian.org/debian/ bookworm-backports main contrib non-free
-        filename: backports
-        state: present
-    - name: Add Backports source repository
-      ansible.builtin.apt_repository:
-        repo: deb-src https://deb.debian.org/debian/ bookworm-backports main contrib non-free
-        filename: backports
-        state: present
-    - name: Install packages
-      ansible.builtin.apt:
-        name:
-          - avahi-daemon
-          - bsd-mailx
-          - man-db
-          - net-tools
-          - rsync
-          - vim
-        state: present
-        update_cache: true
-    - name: Configure default editor
-      community.general.alternatives:
-        name: editor
-        path: /usr/bin/vim.basic
-    - name: Configure unattended upgrades
+    - name: Set up system
       ansible.builtin.include_role:
-        name: hifis.toolkit.unattended_upgrades
-      vars:
-        unattended_automatic_reboot: true
-        unattended_mail: 8wdpoixbwk@pomail.net
-        unattended_mail_report: always
+        name: system

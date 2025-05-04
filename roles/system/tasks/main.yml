@@ -1,0 +1,11 @@
+---
+- name: Configure sshd
+  ansible.builtin.include_tasks: sshd.yml
+- name: Add extra repositories
+  ansible.builtin.include_tasks: repos.yml
+- name: Install packages
+  ansible.builtin.include_tasks: packages.yml
+- name: Configure defaults
+  ansible.builtin.include_tasks: defaults.yml
+- name: Configure unattended upgrades
+  ansible.builtin.include_tasks: upgrades.yml
