@@ -3,4 +3,5 @@
 .galaxy-roles
 .galaxy-collections
 .ansible
+inventories/host_vars/*.yml
 TODO.md
