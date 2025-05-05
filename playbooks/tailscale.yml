@@ -6,9 +6,6 @@
     - name: Install Tailscale
       ansible.builtin.include_role:
         name: artis3n.tailscale
-      vars:
-        tailscale_authkey: "{{ lookup('env', 'TAILSCALE_KEY') }}"
-        tailscale_args: --advertise-routes=192.168.1.0/24 --accept-dns=false
     - name: Enable IP forwarding
       ansible.builtin.include_role:
         name: tailscale
