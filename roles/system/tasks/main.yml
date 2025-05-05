@@ -5,7 +5,7 @@
     cache_valid_time: 3600
   register: result
   until: result is succeeded
-- name: Upgrade all packages
+- name: Upgrade all packages # noqa package-latest
   ansible.builtin.apt:
     upgrade: true
     state: latest
@@ -19,7 +19,7 @@
     src: motd.txt
     dest: /etc/motd
     mode: "544"
-- name: Configure default editor
+- name: Set default editor
   community.general.alternatives:
     name: editor
     path: /usr/bin/vim.basic
@@ -27,6 +27,6 @@
   ansible.builtin.include_role:
     name: hifis.toolkit.unattended_upgrades
   vars:
-    unattended_automatic_reboot: true
+    unattended_automatic_reboot: "{{ system_unattended_upgrades_automatic_reboot }}"
+    unattended_mail_report: "{{ system_unattended_upgrades_email_report }}"
     unattended_mail: "{{ system_unattended_upgrades_email }}"
-    unattended_mail_report: always
