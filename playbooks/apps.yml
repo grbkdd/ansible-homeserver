@@ -1,5 +1,5 @@
 ---
-- name: Set up NextDNS
+- name: Set up apps
   hosts: all
   become: true
   tasks:

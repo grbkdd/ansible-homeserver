@@ -1,8 +1,0 @@
----
-- name: Set up ZFS
-  hosts: all
-  become: true
-  tasks:
-    - name: Install ZFS support and import pools
-      ansible.builtin.include_role:
-        name: zfs

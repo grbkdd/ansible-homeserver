@@ -1,8 +1,0 @@
----
-- name: Set up Samba
-  hosts: all
-  become: true
-  tasks:
-    - name: Set up Samba server
-      ansible.builtin.include_role:
-        name: vladgh.samba.server

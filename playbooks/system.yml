@@ -3,9 +3,30 @@
   hosts: all
   become: true
   tasks:
-    - name: Set up sshd
+    - name: Configure passwordless sudo
+      ansible.builtin.include_role:
+        name: sudo
+    - name: Set up SSHD
       ansible.builtin.include_role:
         name: sshd
     - name: Set up system basics
       ansible.builtin.include_role:
         name: system
+    - name: Install ZFS support and import pools
+      ansible.builtin.include_role:
+        name: zfs
+    - name: Set up Samba server
+      ansible.builtin.include_role:
+        name: vladgh.samba.server
+    - name: Install Tailscale
+      ansible.builtin.include_role:
+        name: artis3n.tailscale
+    - name: Enable IP forwarding
+      ansible.builtin.include_role:
+        name: tailscale
+    - name: Install Docker
+      ansible.builtin.include_role:
+        name: geerlingguy.docker
+    - name: Configure Docker
+      ansible.builtin.include_role:
+        name: docker
