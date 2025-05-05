@@ -1,25 +1,31 @@
 ---
-- name: Download NextDNS GPG key
-  ansible.builtin.get_url:
-    url: https://repo.nextdns.io/nextdns.gpg
-    dest: /usr/share/keyrings/nextdns.gpg
-    mode: "0644"
-- name: Add NextDNS repository
-  ansible.builtin.apt_repository:
-    repo: deb [signed-by=/usr/share/keyrings/nextdns.gpg] https://repo.nextdns.io/deb stable main
-    filename: nextdns
-    state: present
-- name: Install NextDNS
-  ansible.builtin.apt:
-    name: nextdns
-    state: present
-    update_cache: true
-- name: Copy nextdns.conf to /etc
+- name: Disable DNSStubListener
   ansible.builtin.copy:
-    src: nextdns.conf
-    dest: /etc/
+    src: disable-stub.conf
+    dest: /etc/systemd/resolved.conf.d/
     mode: "0644"
-- name: Restart NextDNS service
-  ansible.builtin.command:
-    cmd: nextdns restart
-  changed_when: true
+  register: disable_stub_config
+- name: Restart systemd-resolved # noqa no-handler
+  ansible.builtin.service:
+    name: systemd-resolved
+    state: restarted
+  when: disable_stub_config.changed
+- name: Start NextDNS
+  when: nextdns_enabled is true
+  block:
+    - name: Start NextDNS container
+      community.docker.docker_container:
+        name: nextdns
+        image: nextdns/nextdns:latest
+        network_mode: host
+        pull: true
+        restart_policy: unless-stopped
+        memory: "{{ nextdns_memory }}"
+        command: "{{ nextdns_command }}"
+- name: Stop NextDNS
+  when: nextdns_enabled is false
+  block:
+    - name: Stop NextDNS container
+      community.docker.docker_container:
+        name: nextdns
+        state: absent
