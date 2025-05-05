@@ -6,6 +6,6 @@
     - name: Install Docker
       ansible.builtin.include_role:
         name: geerlingguy.docker
-      vars:
-        docker_users:
-          - "{{ ansible_user }}"
+    - name: Configure Docker
+      ansible.builtin.include_role:
+        name: docker
