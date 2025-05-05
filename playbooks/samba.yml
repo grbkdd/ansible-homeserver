@@ -3,8 +3,6 @@
   hosts: all
   become: true
   tasks:
-    - name: Install and configure Samba
+    - name: Set up Samba server
       ansible.builtin.include_role:
-        name: samba
-      vars:
-        samba_password: "{{ lookup('env', 'SAMBA_PASSWORD') }}"
+        name: vladgh.samba.server

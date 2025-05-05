@@ -6,3 +6,4 @@ collections:
   - name: ansible.posix
   - name: community.general
   - name: hifis.toolkit
+  - name: vladgh.samba
