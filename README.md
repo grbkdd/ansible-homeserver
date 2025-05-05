@@ -77,14 +77,9 @@ Use the following command to execute a playbook:
 
 ### Playbooks
 
-| Playbook                | Description                                    | Comments                                                                    |
-|-------------------------|------------------------------------------------|-----------------------------------------------------------------------------|
-| playbooks/sudo.yml      | Enable passwordless sudo for default user.     | Execute first. Use "--ask-become-pass" or "-K" to provide password to sudo. |
-| playbooks/zfs.yml       | Install ZFS support and import existing pools. | Execute second to set up storage.                                           |
-| playbooks/system.yml    | Configure system.                              |                                                                             |
-| playbooks/backup.yml    | Configure backup.                              |                                                                             |
-| playbooks/samba.yml     | Install and configure Samba.                   |                                                                             |
-| playbooks/tailscale.yml | Install and configure Tailscale.               |                                                                             |
-| playbooks/nextdns.yml   | Install and configure NextDNS.                 |                                                                             |
-| playbooks/docker.yml    | Install Docker.                                |                                                                             |
+| Playbook             | Description                                | Comments                                                                |
+|----------------------|--------------------------------------------|-------------------------------------------------------------------------|
+| playbooks/sudo.yml   | Enable passwordless sudo for default user. | Use first. Use "--ask-become-pass" or "-K" to provide password to sudo. |
+| playbooks/system.yml | Configure system.                          | Use second.                                                             |
+| playbooks/apps.yml   | Install and configure Docker applications. | Use third.                                                              |
 
