@@ -11,11 +11,7 @@
     state: latest
 - name: Install packages
   ansible.builtin.apt:
-    name:
-      - avahi-daemon
-      - man-db
-      - net-tools
-      - vim
+    name: "{{ system_extra_packages }}"
     state: present
     update_cache: true
 - name: Set login banner
