@@ -1,6 +1,6 @@
 ---
 - name: Set up sudo
-  hosts: homelab
+  hosts: all
   become: true
   tasks:
     - name: Configure passwordless sudo

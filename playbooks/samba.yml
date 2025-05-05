@@ -1,6 +1,6 @@
 ---
 - name: Set up Samba
-  hosts: homelab
+  hosts: all
   become: true
   tasks:
     - name: Install and configure Samba

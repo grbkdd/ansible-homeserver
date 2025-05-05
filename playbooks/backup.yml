@@ -1,6 +1,6 @@
 ---
 - name: Set up backup
-  hosts: homelab
+  hosts: all
   become: true
   tasks:
     - name: Set up backup

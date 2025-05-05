@@ -1,6 +1,6 @@
 ---
 - name: Set up Docker
-  hosts: homelab
+  hosts: all
   become: true
   tasks:
     - name: Install Docker

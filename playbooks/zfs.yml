@@ -1,6 +1,6 @@
 ---
 - name: Set up ZFS
-  hosts: homelab
+  hosts: all
   become: true
   tasks:
     - name: Install ZFS support and import pools

@@ -1,6 +1,6 @@
 ---
 - name: Set up system
-  hosts: homelab
+  hosts: all
   become: true
   tasks:
     - name: Set up sshd
