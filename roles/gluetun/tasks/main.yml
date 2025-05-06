@@ -1,0 +1,12 @@
+---
+- name: Start Gluetun container
+  community.docker.docker_container:
+    name: gluetun
+    image: qmcgaw/gluetun:latest
+    pull: true
+    ports: "{{ gluetun_ports }}"
+    env: "{{ gluetun_environment_variables }}"
+    restart_policy: unless-stopped
+    memory: "{{ gluetun_memory }}"
+    capabilities:
+      - NET_ADMIN

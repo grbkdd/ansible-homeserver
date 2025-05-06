@@ -1,0 +1,11 @@
+---
+- name: Deploy Docker containers
+  hosts: all
+  become: true
+  tasks:
+    - name: Deploy NextDNS
+      ansible.builtin.include_role:
+        name: nextdns
+    - name: Deploy Gluetun
+      ansible.builtin.include_role:
+        name: gluetun

@@ -1,8 +1,0 @@
----
-- name: Set up apps
-  hosts: all
-  become: true
-  tasks:
-    - name: Install and configure NextDNS
-      ansible.builtin.include_role:
-        name: nextdns
