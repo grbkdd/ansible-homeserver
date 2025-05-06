@@ -36,6 +36,9 @@
     - name: Deploy Speedtest Tracker
       ansible.builtin.include_role:
         name: speedtest_tracker
-    - name: Deploy Minecraft PaperMC
+    - name: Deploy Minecraft PaperMC server
       ansible.builtin.include_role:
         name: minecraft_papermc
+    - name: Deploy Minecraft Cursed Walking server
+      ansible.builtin.include_role:
+        name: minecraft_cursed_walking

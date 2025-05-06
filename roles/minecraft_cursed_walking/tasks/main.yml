@@ -1,0 +1,30 @@
+---
+- name: Create Minecraft Cursed Walking directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items:
+    - "{{ minecraft_cursed_walking_data_directory }}"
+- name: Start Minecraft Cursed Walking server
+  community.docker.docker_container:
+    name: minecraft-cursed-walking
+    image: itzg/minecraft-server:latest
+    pull: true
+    ports:
+      - "{{ minecraft_cursed_walking_port }}:25565"
+    env:
+      UID: "{{ minecraft_cursed_walking_user_id }}"
+      GID: "{{ minecraft_cursed_walking_group_id }}"
+      VERSION: 1.20.1
+      EULA: "TRUE"
+      TYPE: "AUTO_CURSEFORGE"
+      CF_API_KEY: "$$2a$$10$$fI37G2Lt0YsVMbtQS0tBvezRbUBwEaBb8a6/QS9RUiVn3FDCZB49G"
+      CF_PAGE_URL: "https://www.curseforge.com/minecraft/modpacks/cursed-walking-a-modern-zombie-apocalypse"
+      MEMORY: "{{ minecraft_cursed_walking_memory }}"
+    restart_policy: unless-stopped
+    memory: "{{ minecraft_cursed_walking_memory }}"
+    volumes:
+      - "{{ minecraft_cursed_walking_data_directory }}:/data:rw"
+    interactive: true
+    tty: true
