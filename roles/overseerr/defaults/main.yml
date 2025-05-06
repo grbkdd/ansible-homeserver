@@ -1,0 +1,6 @@
+---
+overseerr_memory: 1g
+overseerr_port: 5055
+overseerr_user_id: "{{ ansible_user_id }}"
+overseerr_group_id: "{{ ansible_group_id }}"
+overseerr_config_directory: "{{ docker_home }}/overseerr/config"

@@ -4,8 +4,10 @@
 
 # Data
 data_root: /disk
-downloads_root: "{{ data_root}}/Downloads"
-torrents_root: "{{ data_root}}/Drop Box"
+movies_directory: "{{ data_root }}/Movies"
+tv_directory: "{{ data_root }}/TV Shows"
+downloads_directory: "{{ data_root }}/Downloads"
+torrents_directory: "{{ data_root }}/Drop Box"
 
 # Samba
 samba_manage_directories: false

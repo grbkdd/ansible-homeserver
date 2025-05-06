@@ -1,0 +1,22 @@
+---
+- name: Create Prowlarr directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items:
+    - "{{ prowlarr_config_directory }}"
+- name: Start Prowlarr container
+  community.docker.docker_container:
+    name: prowlarr
+    image: linuxserver/prowlarr:latest
+    pull: true
+    ports:
+      - "{{ prowlarr_port }}:9696"
+    env:
+      PUID: "{{ prowlarr_user_id }}"
+      PGID: "{{ prowlarr_group_id }}"
+    restart_policy: unless-stopped
+    memory: "{{ prowlarr_memory }}"
+    volumes:
+      - "{{ prowlarr_config_directory }}:/config:rw"

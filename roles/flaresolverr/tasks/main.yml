@@ -1,0 +1,10 @@
+---
+- name: Start Flaresolverr container
+  community.docker.docker_container:
+    name: flaresolverr
+    image: flaresolverr/flaresolverr:latest
+    pull: true
+    ports:
+      - "{{ flaresolverr_port }}:8191"
+    restart_policy: unless-stopped
+    memory: "{{ flaresolverr_memory }}"

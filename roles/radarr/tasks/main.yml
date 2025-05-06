@@ -1,0 +1,24 @@
+---
+- name: Create Radarr directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items:
+    - "{{ radarr_config_directory }}"
+- name: Start Radarr container
+  community.docker.docker_container:
+    name: radarr
+    image: linuxserver/radarr:latest
+    pull: true
+    ports:
+      - "{{ radarr_port }}:7878"
+    env:
+      PUID: "{{ radarr_user_id }}"
+      PGID: "{{ radarr_group_id }}"
+    restart_policy: unless-stopped
+    memory: "{{ radarr_memory }}"
+    volumes:
+      - "{{ radarr_config_directory }}:/config:rw"
+      - "{{ radarr_movies_directory }}:/movies:rw"
+      - "{{ radarr_downloads_directory }}:/downloads:rw"

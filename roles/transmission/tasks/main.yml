@@ -6,7 +6,7 @@
     mode: "0755"
   with_items:
     - "{{ transmission_config_directory }}"
-    - "{{ transmission_download_directory }}"
+    - "{{ transmission_downloads_directory }}"
     - "{{ transmission_watch_directory }}"
 - name: Start Transmission container
   community.docker.docker_container:
@@ -21,5 +21,5 @@
     network_mode: "{{ transmission_network_mode }}"
     volumes:
       - "{{ transmission_config_directory }}:/config:rw"
-      - "{{ transmission_download_directory }}:/downloads:rw"
+      - "{{ transmission_downloads_directory }}:/downloads:rw"
       - "{{ transmission_watch_directory }}:/watch:rw"

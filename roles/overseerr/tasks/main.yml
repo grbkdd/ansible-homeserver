@@ -1,0 +1,22 @@
+---
+- name: Create Overseerr directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items:
+    - "{{ overseerr_config_directory }}"
+- name: Start Overseerr container
+  community.docker.docker_container:
+    name: overseerr
+    image: sctx/overseerr:latest
+    pull: true
+    ports:
+      - "{{ overseerr_port }}:5055"
+    env:
+      LOG_LEVEL: info
+    restart_policy: unless-stopped
+    memory: "{{ overseerr_memory }}"
+    user: "{{ overseerr_user_id }}:{{ overseerr_group_id }}"
+    volumes:
+      - "{{ overseerr_config_directory }}:/app/config:rw"

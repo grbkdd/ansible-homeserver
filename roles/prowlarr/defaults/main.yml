@@ -1,0 +1,6 @@
+---
+prowlarr_memory: 1g
+prowlarr_port: 9696
+prowlarr_user_id: "{{ ansible_user_id }}"
+prowlarr_group_id: "{{ ansible_group_id }}"
+prowlarr_config_directory: "{{ docker_home }}/prowlarr/config"

@@ -1,0 +1,37 @@
+---
+- name: Create Plex directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items:
+    - "{{ plex_config_directory }}"
+    - "{{ plex_transcode_directory }}"
+- name: Start Plex container
+  community.docker.docker_container:
+    name: plex
+    image: plexinc/pms-docker:latest
+    pull: true
+    ports:
+      - "{{ plex_port }}:32400/tcp"
+      - 3005:3005/tcp
+      - 8324:8324/tcp
+      - 32469:32469/tcp
+      - 1900:1900/udp
+      - 32410:32410/udp
+      - 32412:32412/udp
+      - 32413:32413/udp
+      - 32414:32414/udp
+    env:
+      PUID: "{{ plex_user_id }}"
+      PGID: "{{ plex_group_id }}"
+      PLEX_CLAIM: "{{ plex_claim_token }}"
+      ADVERTISE_IP: http://{{ ansible_host }}:{{ plex_port }}/
+    restart_policy: unless-stopped
+    memory: "{{ plex_memory }}"
+    hostname: "{{ ansible_hostname }}"
+    volumes:
+      - "{{ plex_config_directory }}:/config:rw"
+      - "{{ plex_transcode_directory }}:/transcode:rw"
+      - "{{ plex_movies_directory }}:/data/Movies:rw"
+      - "{{ plex_tv_directory }}:/data/TV Shows:rw"

@@ -1,2 +1,8 @@
 ---
 gluetun_memory: 1g
+transmission_port: 9091
+transmission_ports:
+  - "{{ transmission_port }}:9091"
+  - 51413:51413
+  - 51413:51413/udp
+gluetun_ports: "{{ transmission_ports }}"

@@ -12,3 +12,21 @@
     - name: Deploy Transmission
       ansible.builtin.include_role:
         name: transmission
+    - name: Deploy Radarr
+      ansible.builtin.include_role:
+        name: radarr
+    - name: Deploy Sonarr
+      ansible.builtin.include_role:
+        name: sonarr
+    - name: Deploy Prowlarr
+      ansible.builtin.include_role:
+        name: prowlarr
+    - name: Deploy Flaresolverr
+      ansible.builtin.include_role:
+        name: flaresolverr
+    - name: Deploy Overseerr
+      ansible.builtin.include_role:
+        name: overseerr
+    - name: Deploy Plex
+      ansible.builtin.include_role:
+        name: plex
