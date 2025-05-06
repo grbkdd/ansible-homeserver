@@ -1,0 +1,18 @@
+---
+- name: Start Speedtest Tracker container
+  community.docker.docker_container:
+    name: speedtest-tracker
+    image: linuxserver/speedtest-tracker:latest
+    pull: true
+    ports:
+      - "{{ speedtest_tracker_port }}:80"
+    env:
+      PUID: "{{ speedtest_tracker_user_id }}"
+      PGID: "{{ speedtest_tracker_group_id }}"
+      DB_CONNECTION: sqlite
+      APP_KEY: "{{ speedtest_tracker_app_key }}"
+      SPEEDTEST_SCHEDULE: "{{ speedtest_tracker_schedule }}"
+    restart_policy: unless-stopped
+    memory: "{{ speedtest_tracker_memory }}"
+    volumes:
+      - "{{ speedtest_tracker_config_directory }}:/config:rw"

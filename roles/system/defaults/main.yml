@@ -10,4 +10,5 @@ system_extra_packages:
   - net-tools
   - python3-pip
   - rsync
+  - tree
   - vim

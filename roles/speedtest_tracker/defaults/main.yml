@@ -1,0 +1,6 @@
+---
+speedtest_tracker_memory: 1g
+speedtest_tracker_port: 3445
+speedtest_tracker_user_id: "{{ ansible_user_id }}"
+speedtest_tracker_group_id: "{{ ansible_group_id }}"
+speedtest_tracker_config_directory: "{{ docker_home }}/speedtest-tracker/config"
