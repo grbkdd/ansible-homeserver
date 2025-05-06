@@ -9,4 +9,5 @@ system_extra_packages:
   - man-db
   - net-tools
   - python3-pip
+  - rsync
   - vim
