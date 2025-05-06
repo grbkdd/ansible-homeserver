@@ -6,4 +6,3 @@ transmission_group_id: "{{ ansible_group_id }}"
 transmission_config_directory: "{{ docker_home }}/transmission/config"
 transmission_downloads_directory: "{{ downloads_directory }}"
 transmission_watch_directory: "{{ torrents_directory }}"
-
