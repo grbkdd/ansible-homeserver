@@ -16,12 +16,12 @@
     env:
       UID: "{{ minecraft_cursed_walking_user_id }}"
       GID: "{{ minecraft_cursed_walking_group_id }}"
-      VERSION: 1.20.1
-      EULA: "TRUE"
-      TYPE: "AUTO_CURSEFORGE"
-      CF_API_KEY: "$$2a$$10$$fI37G2Lt0YsVMbtQS0tBvezRbUBwEaBb8a6/QS9RUiVn3FDCZB49G"
-      CF_PAGE_URL: "https://www.curseforge.com/minecraft/modpacks/cursed-walking-a-modern-zombie-apocalypse"
+      VERSION: "{{ minecraft_cursed_walking_server_version }}"
+      CF_API_KEY: "{{ minecraft_cursed_walking_cf_api_key }}"
+      CF_PAGE_URL: "{{ minecraft_cursed_walking_cf_page_url }}"
       MEMORY: "{{ minecraft_cursed_walking_memory }}"
+      TYPE: AUTO_CURSEFORGE
+      EULA: "TRUE"
     restart_policy: unless-stopped
     memory: "{{ minecraft_cursed_walking_memory }}"
     volumes:

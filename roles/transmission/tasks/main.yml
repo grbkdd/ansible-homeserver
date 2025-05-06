@@ -6,8 +6,6 @@
     mode: "0755"
   with_items:
     - "{{ transmission_config_directory }}"
-    - "{{ transmission_downloads_directory }}"
-    - "{{ transmission_watch_directory }}"
 - name: Start Transmission container
   community.docker.docker_container:
     name: transmission

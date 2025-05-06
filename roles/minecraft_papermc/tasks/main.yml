@@ -1,4 +1,11 @@
 ---
+- name: Create Minecraft PaperMC directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items:
+    - "{{ minecraft_papermc_data_directory }}"
 - name: Start Minecraft PaperMC server
   community.docker.docker_container:
     name: minecraft-papermc
