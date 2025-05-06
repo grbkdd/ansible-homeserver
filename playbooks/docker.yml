@@ -9,3 +9,6 @@
     - name: Deploy Gluetun
       ansible.builtin.include_role:
         name: gluetun
+    - name: Deploy Transmission
+      ansible.builtin.include_role:
+        name: transmission
