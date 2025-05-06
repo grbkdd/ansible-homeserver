@@ -10,22 +10,12 @@
     name: systemd-resolved
     state: restarted
   when: disable_stub_config.changed
-- name: Start NextDNS
-  when: nextdns_enabled is true
-  block:
-    - name: Start NextDNS container
-      community.docker.docker_container:
-        name: nextdns
-        image: nextdns/nextdns:latest
-        network_mode: host
-        pull: true
-        restart_policy: unless-stopped
-        memory: "{{ nextdns_memory }}"
-        command: "{{ nextdns_command }}"
-- name: Stop NextDNS
-  when: nextdns_enabled is false
-  block:
-    - name: Stop NextDNS container
-      community.docker.docker_container:
-        name: nextdns
-        state: absent
+- name: Start NextDNS container
+  community.docker.docker_container:
+    name: nextdns
+    image: nextdns/nextdns:latest
+    network_mode: host
+    pull: true
+    restart_policy: unless-stopped
+    memory: "{{ nextdns_memory }}"
+    command: "{{ nextdns_command }}"

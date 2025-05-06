@@ -1,5 +1,4 @@
 ---
-nextdns_enabled: false
 nextdns_memory: 1g
 nextdns_listen: -listen=:53
 nextdns_profile: "{% if nextdns_configuration_id is defined %}-profile={{ nextdns_configuration_id }}{% endif %}"
