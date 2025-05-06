@@ -36,3 +36,6 @@
     - name: Deploy Speedtest Tracker
       ansible.builtin.include_role:
         name: speedtest_tracker
+    - name: Deploy Minecraft PaperMC
+      ansible.builtin.include_role:
+        name: minecraft_papermc

@@ -1,0 +1,16 @@
+---
+- name: Start Minecraft PaperMC server
+  community.docker.docker_container:
+    name: minecraft-papermc
+    image: marctv/minecraft-papermc-server:latest
+    pull: true
+    ports:
+      - "{{ minecraft_papermc_port }}:25565"
+    env:
+      PUID: "{{ minecraft_papermc_user_id }}"
+      PGID: "{{ minecraft_papermc_group_id }}"
+      MEMORYSIZE: "{{ minecraft_papermc_memory }}"
+    restart_policy: unless-stopped
+    memory: "{{ minecraft_papermc_memory }}"
+    volumes:
+      - "{{ minecraft_papermc_data_directory }}:/data:rw"
