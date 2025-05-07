@@ -1,0 +1,23 @@
+---
+- name: Create Homepage directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items:
+    - "{{ homepage_config_directory }}"
+- name: Start Homepage container
+  community.docker.docker_container:
+    name: homepage
+    image: gethomepage/homepage:latest
+    pull: true
+    ports:
+      - "{{ homepage_port }}:3000"
+    env:
+      PUID: "{{ homepage_user_id }}"
+      PGID: "{{ homepage_group_id }}"
+      HOMEPAGE_ALLOWED_HOSTS: "{{ homepage_allowed_hosts }}"
+    restart_policy: unless-stopped
+    memory: "{{ homepage_memory }}"
+    volumes:
+      - "{{ homepage_config_directory }}:/app/config:rw"

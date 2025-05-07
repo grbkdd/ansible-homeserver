@@ -1,0 +1,6 @@
+---
+homepage_memory: 1g
+homepage_port: 3000
+homepage_user_id: "{{ ansible_user_id }}"
+homepage_group_id: "{{ ansible_group_id }}"
+homepage_config_directory: "{{ docker_home }}/homepage/config"

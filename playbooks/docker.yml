@@ -42,3 +42,9 @@
     - name: Deploy Minecraft Cursed Walking server
       ansible.builtin.include_role:
         name: minecraft_cursed_walking
+    - name: Deploy Watchtower
+      ansible.builtin.include_role:
+        name: watchtower
+    - name: Deploy Homepage
+      ansible.builtin.include_role:
+        name: homepage
