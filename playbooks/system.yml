@@ -3,7 +3,7 @@
   hosts: all
   become: true
   tasks:
-    - name: Configure passwordless sudo
+    - name: Configure sudo
       ansible.builtin.include_role:
         name: sudo
     - name: Set up SSHD
@@ -30,3 +30,6 @@
     - name: Configure Docker
       ansible.builtin.include_role:
         name: docker
+    - name: Configure backup
+      ansible.builtin.include_role:
+        name: backup

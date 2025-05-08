@@ -3,41 +3,24 @@
   ansible.builtin.apt:
     name: sshpass
     state: present
-- name: Create backup directory
-  ansible.builtin.file:
-    path: /opt/backup
-    state: directory
-    mode: "0755"
-- name: Copy backup scripts
+- name: Copy backup script
   ansible.builtin.copy:
-    src: "{{ item }}"
-    dest: /opt/backup/
+    src: rsync-backup.py
+    dest: /usr/local/sbin/rsync-backup
     mode: "0755"
-  with_items:
-    - rsync-homepage
-    - rsync-docker
-    - rsync-disk
-- name: Configure backup environment
+- name: Copy backup configuration
   ansible.builtin.template:
-    src: dotenv.j2
-    dest: /opt/backup/.env
+    src: "{{ item.src }}"
+    dest: /usr/local/etc/{{ item.dest }}
     mode: "0600"
-- name: Set up backup cron jobs
-  ansible.builtin.cron:
-    name: "{{ item.name }}"
-    minute: "{{ item.minute }}"
-    hour: "{{ item.hour }}"
-    job: "{{ item.job }}"
   with_items:
-    - name: Homepage backup
-      minute: 30
-      hour: 6
-      job: /opt/backup/rsync-homepage 2>&1 | /usr/bin/logger -t BACKUP
-    - name: Docker backup
-      minute: 45
-      hour: 6
-      job: /opt/backup/rsync-docker 2>&1 | /usr/bin/logger -t BACKUP
-    - name: Disk backup
-      minute: 0
-      hour: 7
-      job: /opt/backup/rsync-disk 2>&1 | /usr/bin/logger -t BACKUP
+    - src: rsync-backup.yml.j2
+      dest: rsync-backup.yml
+    - src: rsync-passwd.txt.j2
+      dest: rsync-passwd.txt
+- name: Configure cron job
+  ansible.builtin.cron:
+    name: Backup job
+    hour: 6
+    minute: 0
+    job: rsync-backup 2>&1 | /usr/bin/logger -t BACKUP

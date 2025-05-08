@@ -11,7 +11,7 @@ Install Ubuntu Server following the steps below.
 * Keyboard configuration
     * Leave defaults
 * Type of installation
-    * Select "Ubuntu Server (minimized)"
+    * Select "Ubuntu Server"
     * Enable "Search for third-party drivers"
 * Network configuration
     * Review and leave defaults

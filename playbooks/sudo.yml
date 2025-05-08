@@ -3,6 +3,6 @@
   hosts: all
   become: true
   tasks:
-    - name: Configure passwordless sudo
+    - name: Configure sudo
       ansible.builtin.include_role:
         name: sudo
