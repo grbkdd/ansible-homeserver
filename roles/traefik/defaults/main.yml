@@ -1,0 +1,7 @@
+---
+traefik_memory: 1g
+traefik_data_directory: "{{ docker_home }}/traefik"
+traefik_http_port: "80"
+traefik_https_port: "443"
+traefik_ui_port: "8083"
+traefik_log_level: INFO

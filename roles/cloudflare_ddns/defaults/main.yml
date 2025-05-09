@@ -1,2 +1,3 @@
 ---
 cloudflare_ddns_memory: 1g
+cloudflare_ddns_dns_zone: "{{ homelab_domain }}"

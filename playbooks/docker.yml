@@ -48,3 +48,9 @@
     - name: Deploy Homepage
       ansible.builtin.include_role:
         name: homepage
+    - name: Deploy Traefik
+      ansible.builtin.include_role:
+        name: traefik
+    - name: Deploy Whoami
+      ansible.builtin.include_role:
+        name: whoami

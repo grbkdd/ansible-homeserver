@@ -1,0 +1,33 @@
+---
+- name: Create Traefik directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items:
+    - "{{ traefik_data_directory }}"
+    - "{{ traefik_data_directory }}/letsencrypt"
+- name: Create Traefik configuration file
+  ansible.builtin.template:
+    src: traefik.yml.j2
+    dest: "{{ traefik_data_directory }}/traefik.yml"
+    mode: "0644"
+  register: traefik_config
+- name: Start Traefik Docker container
+  community.docker.docker_container:
+    name: traefik
+    image: traefik:latest
+    pull: true
+    network_mode: host
+    volumes:
+      - "{{ traefik_data_directory }}/traefik.yml:/etc/traefik/traefik.yml:ro"
+      - "{{ traefik_data_directory }}/letsencrypt:/letsencrypt:rw"
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    env: "{{ traefik_environment_variables }}"
+    restart_policy: unless-stopped
+    memory: "{{ traefik_memory }}"
+    recreate: "{{ traefik_config is changed }}"
+    labels:
+      traefik.enable: "{{ true | string }}"
+      traefik.http.routers.traefik.rule: Host(`traefik.{{ homelab_domain }}`)
+      traefik.http.services.traefik.loadbalancer.server.port: "{{ traefik_ui_port }}"

@@ -1,0 +1,16 @@
+---
+- name: Start Whoami Docker container
+  community.docker.docker_container:
+    name: whoami
+    image: traefik/whoami:latest
+    pull: true
+    restart_policy: unless-stopped
+    ports:
+      - "{{ whoami_port }}:27351"
+    env:
+      WHOAMI_PORT_NUMBER: "27351"
+    memory: "{{ whoami_memory }}"
+    labels:
+      traefik.enable: "{{ true | string }}"
+      traefik.http.routers.whoami.rule: Host(`whoami.{{ homelab_domain }}`)
+      traefik.http.services.whoami.loadbalancer.server.port: "27351"
