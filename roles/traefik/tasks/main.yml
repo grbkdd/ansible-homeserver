@@ -30,4 +30,8 @@
     labels:
       traefik.enable: "{{ true | string }}"
       traefik.http.routers.traefik.rule: Host(`traefik.{{ homelab_domain }}`)
+      traefik.http.routers.traefik.tls: "true"
+      traefik.http.routers.traefik.tls.certresolver: letsencrypt
+      traefik.http.routers.traefik.tls.domains[0].main: "{{ homelab_domain }}"
+      traefik.http.routers.traefik.tls.domains[0].sans: "*.{{ homelab_domain }}"
       traefik.http.services.traefik.loadbalancer.server.port: "{{ traefik_ui_port }}"
