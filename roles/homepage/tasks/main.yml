@@ -21,3 +21,11 @@
     memory: "{{ homepage_memory }}"
     volumes:
       - "{{ homepage_config_directory }}:/app/config:rw"
+    labels:
+      traefik.enable: "{{ true | string }}"
+      traefik.http.routers.homepage.rule: Host(`homepage.{{ homepage_domain }}`)
+      traefik.http.routers.homepage.tls: "true"
+      traefik.http.routers.homepage.tls.certresolver: letsencrypt
+      traefik.http.routers.homepage.tls.domains[0].main: "{{ homepage_domain }}"
+      traefik.http.routers.homepage.tls.domains[0].sans: "*.{{ homepage_domain }}"
+      traefik.http.services.homepage.loadbalancer.server.port: "3000"

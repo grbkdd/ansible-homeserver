@@ -5,3 +5,4 @@ homepage_user_id: "{{ homeserver_user_id }}"
 homepage_group_id: "{{ homeserver_group_id }}"
 homepage_config_directory: "{{ homeserver_docker_home }}/homepage/config"
 homepage_allowed_hosts: homepage.{{ homeserver_domain }}
+homepage_domain: "{{ homeserver_domain }}"

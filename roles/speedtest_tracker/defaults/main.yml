@@ -5,3 +5,4 @@ speedtest_tracker_user_id: "{{ homeserver_user_id }}"
 speedtest_tracker_group_id: "{{ homeserver_group_id }}"
 speedtest_tracker_config_directory: "{{ homeserver_docker_home }}/speedtest-tracker/config"
 speedtest_tracker_schedule: 15 * * * *
+speedtest_tracker_domain: "{{ homeserver_domain }}"

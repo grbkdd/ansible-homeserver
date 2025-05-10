@@ -20,3 +20,11 @@
     user: "{{ overseerr_user_id }}:{{ overseerr_group_id }}"
     volumes:
       - "{{ overseerr_config_directory }}:/app/config:rw"
+    labels:
+      traefik.enable: "{{ true | string }}"
+      traefik.http.routers.overseerr.rule: Host(`overseerr.{{ overseerr_domain }}`)
+      traefik.http.routers.overseerr.tls: "true"
+      traefik.http.routers.overseerr.tls.certresolver: letsencrypt
+      traefik.http.routers.overseerr.tls.domains[0].main: "{{ overseerr_domain }}"
+      traefik.http.routers.overseerr.tls.domains[0].sans: "*.{{ overseerr_domain }}"
+      traefik.http.services.overseerr.loadbalancer.server.port: "5055"

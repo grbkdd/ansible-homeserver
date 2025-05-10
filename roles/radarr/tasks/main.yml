@@ -22,3 +22,11 @@
       - "{{ radarr_config_directory }}:/config:rw"
       - "{{ radarr_movies_directory }}:/movies:rw"
       - "{{ radarr_downloads_directory }}:/downloads:rw"
+    labels:
+      traefik.enable: "{{ true | string }}"
+      traefik.http.routers.radarr.rule: Host(`radarr.{{ radarr_domain }}`)
+      traefik.http.routers.radarr.tls: "true"
+      traefik.http.routers.radarr.tls.certresolver: letsencrypt
+      traefik.http.routers.radarr.tls.domains[0].main: "{{ radarr_domain }}"
+      traefik.http.routers.radarr.tls.domains[0].sans: "*.{{ radarr_domain }}"
+      traefik.http.services.radarr.loadbalancer.server.port: "7878"

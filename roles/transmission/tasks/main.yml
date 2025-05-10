@@ -21,3 +21,11 @@
       - "{{ transmission_config_directory }}:/config:rw"
       - "{{ transmission_downloads_directory }}:/downloads:rw"
       - "{{ transmission_watch_directory }}:/watch:rw"
+    labels:
+      traefik.enable: "{{ true | string }}"
+      traefik.http.routers.transmission.rule: Host(`transmission.{{ transmission_domain }}`)
+      traefik.http.routers.transmission.tls: "true"
+      traefik.http.routers.transmission.tls.certresolver: letsencrypt
+      traefik.http.routers.transmission.tls.domains[0].main: "{{ transmission_domain }}"
+      traefik.http.routers.transmission.tls.domains[0].sans: "*.{{ transmission_domain }}"
+      traefik.http.services.transmission.loadbalancer.server.port: "9091"

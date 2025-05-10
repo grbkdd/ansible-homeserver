@@ -16,3 +16,11 @@
     memory: "{{ speedtest_tracker_memory }}"
     volumes:
       - "{{ speedtest_tracker_config_directory }}:/config:rw"
+    labels:
+      traefik.enable: "{{ true | string }}"
+      traefik.http.routers.speedtest_tracker.rule: Host(`speedtest-tracker.{{ speedtest_tracker_domain }}`)
+      traefik.http.routers.speedtest_tracker.tls: "true"
+      traefik.http.routers.speedtest_tracker.tls.certresolver: letsencrypt
+      traefik.http.routers.speedtest_tracker.tls.domains[0].main: "{{ speedtest_tracker_domain }}"
+      traefik.http.routers.speedtest_tracker.tls.domains[0].sans: "*.{{ speedtest_tracker_domain }}"
+      traefik.http.services.speedtest_tracker.loadbalancer.server.port: "80"

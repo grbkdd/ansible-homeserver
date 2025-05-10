@@ -4,3 +4,4 @@ prowlarr_port: 9696
 prowlarr_user_id: "{{ homeserver_user_id }}"
 prowlarr_group_id: "{{ homeserver_group_id }}"
 prowlarr_config_directory: "{{ homeserver_docker_home }}/prowlarr/config"
+prowlarr_domain: "{{ homeserver_domain }}"

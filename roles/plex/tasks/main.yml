@@ -35,3 +35,11 @@
       - "{{ plex_transcode_directory }}:/transcode:rw"
       - "{{ plex_movies_directory }}:/data/Movies:rw"
       - "{{ plex_tv_directory }}:/data/TV Shows:rw"
+    labels:
+      traefik.enable: "{{ true | string }}"
+      traefik.http.routers.plex.rule: Host(`plex.{{ plex_domain }}`)
+      traefik.http.routers.plex.tls: "true"
+      traefik.http.routers.plex.tls.certresolver: letsencrypt
+      traefik.http.routers.plex.tls.domains[0].main: "{{ plex_domain }}"
+      traefik.http.routers.plex.tls.domains[0].sans: "*.{{ plex_domain }}"
+      traefik.http.services.plex.loadbalancer.server.port: "32400"

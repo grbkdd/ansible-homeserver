@@ -4,3 +4,4 @@ overseerr_port: 5055
 overseerr_user_id: "{{ homeserver_user_id }}"
 overseerr_group_id: "{{ homeserver_group_id }}"
 overseerr_config_directory: "{{ homeserver_docker_home }}/overseerr/config"
+overseerr_domain: "{{ homeserver_domain }}"

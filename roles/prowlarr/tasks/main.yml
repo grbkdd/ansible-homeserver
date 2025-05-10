@@ -20,3 +20,11 @@
     memory: "{{ prowlarr_memory }}"
     volumes:
       - "{{ prowlarr_config_directory }}:/config:rw"
+    labels:
+      traefik.enable: "{{ true | string }}"
+      traefik.http.routers.prowlarr.rule: Host(`prowlarr.{{ prowlarr_domain }}`)
+      traefik.http.routers.prowlarr.tls: "true"
+      traefik.http.routers.prowlarr.tls.certresolver: letsencrypt
+      traefik.http.routers.prowlarr.tls.domains[0].main: "{{ prowlarr_domain }}"
+      traefik.http.routers.prowlarr.tls.domains[0].sans: "*.{{ prowlarr_domain }}"
+      traefik.http.services.prowlarr.loadbalancer.server.port: "9696"

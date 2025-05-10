@@ -22,3 +22,11 @@
       - "{{ sonarr_config_directory }}:/config:rw"
       - "{{ sonarr_tv_directory }}:/tv:rw"
       - "{{ sonarr_downloads_directory }}:/downloads:rw"
+    labels:
+      traefik.enable: "{{ true | string }}"
+      traefik.http.routers.sonarr.rule: Host(`sonarr.{{ sonarr_domain }}`)
+      traefik.http.routers.sonarr.tls: "true"
+      traefik.http.routers.sonarr.tls.certresolver: letsencrypt
+      traefik.http.routers.sonarr.tls.domains[0].main: "{{ sonarr_domain }}"
+      traefik.http.routers.sonarr.tls.domains[0].sans: "*.{{ sonarr_domain }}"
+      traefik.http.services.sonarr.loadbalancer.server.port: "8989"
