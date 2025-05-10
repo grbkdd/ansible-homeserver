@@ -82,4 +82,5 @@ Use the following command to execute a playbook:
 | playbooks/sudo.yml   | Enable passwordless sudo for default user. | Use first. Use "--ask-become-pass" or "-K" to provide password to sudo. |
 | playbooks/system.yml | Configure system.                          | Use second.                                                             |
 | playbooks/docker.yml | Deploy Docker applications.                | Use third.                                                              |
+| playbooks/all.yml    | Run everything in one shot.                | Use instead of the other playbooks.                                     |
 
