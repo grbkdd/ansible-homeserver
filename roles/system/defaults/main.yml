@@ -1,6 +1,7 @@
 ---
 system_extra_packages:
   - avahi-daemon
+  - htop
   - less
   - lsof
   - mailutils

@@ -1,12 +1,10 @@
 #!/usr/bin/python3
-import argparse
 import sys
 import requests
 import yaml
 import subprocess
 import logging
 from pathlib import Path
-import os
 
 PUSHOVER_URL = 'https://api.pushover.net/1/messages.json'
 
@@ -37,16 +35,9 @@ def build_command(args, config, task):
     return cmd
 
 
-def build_title():
-    username = os.environ.get('USERNAME')
-    hostname = os.environ.get('HOSTNAME')
-    title = f'{username}@{hostname}'
-    return title
-
-
-def push_notification(message):
-    title = build_title()
-    config = load_config()
+def push_notification(config, message):
+    mail_sender = config['mail_sender']
+    title = f'Backup tasks completed. ({mail_sender})'
     requests.post(PUSHOVER_URL, data={
         'title': title,
         'message': message,
@@ -65,20 +56,23 @@ def main():
         sys.exit(0)
     logger.info('Loading configuration...')
     config = load_config()
-    backup_tasks = config['backup_tasks']
-    for task in backup_tasks:
+    tasks = config['tasks']
+    log = []
+    for task in tasks:
         try:
             logger.info(f'Starting backup of {task['path']}')
             command = build_command(args, config, task)
             logger.info(f'Running command: {" ".join(command)}')
             subprocess.run(command, check=True)
             message = f'Backup of {task['path']} finished successfully.'
+            log.append(message)
             logger.info(message)
-            push_notification(message)
         except subprocess.CalledProcessError:
             message = f'Backup of {task['path']} failed.'
+            log.append(message)
             logger.error(message)
-            push_notification(message)
+    text = '\n'.join(log)
+    push_notification(config, text)
 
 
 if __name__ == '__main__':
