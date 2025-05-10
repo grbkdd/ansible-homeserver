@@ -1,11 +1,9 @@
 ---
-system_unattended_upgrades_automatic_reboot: true
-system_unattended_upgrades_email_report: always
-system_unattended_upgrades_email: "{{ homelab_email }}"
 system_extra_packages:
   - avahi-daemon
   - less
   - lsof
+  - mailutils
   - man-db
   - net-tools
   - python3-pip

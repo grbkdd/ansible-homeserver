@@ -54,3 +54,6 @@
     - name: Deploy Whoami
       ansible.builtin.include_role:
         name: whoami
+    - name: Deploy Mailrise
+      ansible.builtin.include_role:
+        name: mailrise

@@ -1,0 +1,32 @@
+---
+- name: Create Mailrise directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items:
+    - "{{ mailrise_data_directory }}"
+- name: Create Mailrise configuration file
+  ansible.builtin.template:
+    src: mailrise.yml.j2
+    dest: "{{ mailrise_data_directory }}/mailrise.yml"
+    mode: "0644"
+  register: mailrise_config
+- name: Start Mailrise Docker container
+  community.docker.docker_container:
+    name: mailrise
+    image: yoryan/mailrise:latest
+    pull: true
+    restart_policy: unless-stopped
+    memory: "{{ mailrise_memory }}"
+    recreate: "{{ mailrise_config is changed }}"
+    volumes:
+      - "{{ mailrise_data_directory }}/mailrise.yml:/etc/mailrise.conf:ro"
+    labels:
+      traefik.enable: "{{ true | string }}"
+      traefik.tcp.routers.mailrise.rule: HostSNI(`*`)
+      traefik.tcp.routers.mailrise.tls: "true"
+      traefik.tcp.routers.mailrise.tls.certresolver: letsencrypt
+      traefik.tcp.routers.mailrise.tls.domains[0].main: mailrise.{{ homelab_domain }}
+      traefik.tcp.routers.mailrise.tls.domains[0].sans: ""
+      traefik.tcp.routers.mailrise.entrypoints: mailsecure

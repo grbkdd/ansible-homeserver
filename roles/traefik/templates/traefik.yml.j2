@@ -20,6 +20,8 @@ entryPoints:
             - "*.{{ homelab_domain }}"
   traefik:
     address: ":{{ traefik_ui_port }}"
+  mailsecure:
+    address: ":465"
 log:
   level: {{ traefik_log_level }}
 providers:

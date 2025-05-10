@@ -19,3 +19,16 @@ samba_apple_extensions: true
 docker_home: /opt/docker
 docker_users:
   - "{{ ansible_user }}"
+
+# Postfix
+postfix_smtp_tls_wrappermode: true
+postfix_smtp_tls_security_level: encrypt
+
+# Unattended Upgrades
+unattended_mail: pushover@mailrise.{{ homelab_domain }}
+unattended_mail_sender: root@{{ ansible_hostname }}
+unattended_mail_report: on-change
+unattended_automatic_reboot: true
+
+# Mailrise
+mailrise_pushover_email: pushover@mailrise.{{ homelab_domain }}

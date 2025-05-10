@@ -2,6 +2,7 @@
 roles:
   - name: geerlingguy.docker
   - name: artis3n.tailscale
+  - name: robertdebock.postfix
 collections:
   - name: ansible.posix
   - name: community.general

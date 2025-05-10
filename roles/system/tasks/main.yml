@@ -24,10 +24,3 @@
   community.general.alternatives:
     name: editor
     path: /usr/bin/vim.basic
-- name: Configure unattended upgrades
-  ansible.builtin.include_role:
-    name: hifis.toolkit.unattended_upgrades
-  vars:
-    unattended_automatic_reboot: "{{ system_unattended_upgrades_automatic_reboot }}"
-    unattended_mail_report: "{{ system_unattended_upgrades_email_report }}"
-    unattended_mail: "{{ system_unattended_upgrades_email }}"

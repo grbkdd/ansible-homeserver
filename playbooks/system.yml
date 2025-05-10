@@ -33,3 +33,9 @@
     - name: Configure backup
       ansible.builtin.include_role:
         name: backup
+    - name: Install Postfix
+      ansible.builtin.include_role:
+        name: robertdebock.postfix
+    - name: Install Unattended Upgrades
+      ansible.builtin.include_role:
+        name: hifis.toolkit.unattended_upgrades
