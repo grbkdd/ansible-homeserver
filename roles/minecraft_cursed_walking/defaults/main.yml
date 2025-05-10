@@ -1,5 +1,5 @@
 ---
-minecraft_cursed_walking_memory: 1g
+minecraft_cursed_walking_memory: 4g
 minecraft_cursed_walking_port: 34219
 minecraft_cursed_walking_user_id: "{{ homeserver_user_id }}"
 minecraft_cursed_walking_group_id: "{{ homeserver_group_id }}"

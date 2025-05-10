@@ -1,5 +1,5 @@
 ---
-minecraft_papermc_memory: 1g
+minecraft_papermc_memory: 4g
 minecraft_papermc_port: 49152
 minecraft_papermc_user_id: "{{ homeserver_user_id }}"
 minecraft_papermc_group_id: "{{ homeserver_group_id }}"
