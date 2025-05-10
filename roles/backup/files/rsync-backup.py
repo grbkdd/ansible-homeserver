@@ -36,8 +36,8 @@ def build_command(args, config, task):
 
 
 def push_notification(config, message):
-    mail_sender = config['mail_sender']
-    title = f'Backup tasks completed. ({mail_sender})'
+    hostname = config['hostname']
+    title = f'Backup tasks completed on {hostname}'
     requests.post(PUSHOVER_URL, data={
         'title': title,
         'message': message,

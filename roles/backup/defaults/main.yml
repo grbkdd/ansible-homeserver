@@ -1,3 +1,3 @@
 ---
+backup_hostname: "{{ ansible_hostname }}"
 backup_tasks: []
-backup_mail_sender: root@{{ ansible_hostname }}
