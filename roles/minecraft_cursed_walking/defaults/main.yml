@@ -1,6 +1,9 @@
 ---
 minecraft_cursed_walking_memory: 1g
 minecraft_cursed_walking_port: 34219
-minecraft_cursed_walking_user_id: "{{ ansible_user_id }}"
-minecraft_cursed_walking_group_id: "{{ ansible_group_id }}"
-minecraft_cursed_walking_data_directory: "{{ docker_home }}/minecraft-cursed-walking/data"
+minecraft_cursed_walking_user_id: "{{ homeserver_user_id }}"
+minecraft_cursed_walking_group_id: "{{ homeserver_group_id }}"
+minecraft_cursed_walking_data_directory: "{{ homeserver_docker_home }}/minecraft-cursed-walking/data"
+minecraft_cursed_walking_server_version: 1.20.1
+minecraft_cursed_walking_cf_api_key: $$2a$$10$$fI37G2Lt0YsVMbtQS0tBvezRbUBwEaBb8a6/QS9RUiVn3FDCZB49G
+minecraft_cursed_walking_cf_page_url: https://www.curseforge.com/minecraft/modpacks/cursed-walking-a-modern-zombie-apocalypse

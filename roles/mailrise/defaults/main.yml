@@ -1,4 +1,5 @@
 ---
 mailrise_memory: 1g
-mailrise_data_directory: "{{ docker_home }}/mailrise"
+mailrise_data_directory: "{{ homeserver_docker_home }}/mailrise"
 mailrise_pushover_email: pushover@mailrise.xyz
+mailrise_domain: "{{ homeserver_domain }}"

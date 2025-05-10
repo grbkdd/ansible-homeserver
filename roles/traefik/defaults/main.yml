@@ -1,7 +1,9 @@
 ---
 traefik_memory: 1g
-traefik_data_directory: "{{ docker_home }}/traefik"
+traefik_data_directory: "{{ homeserver_docker_home }}/traefik"
 traefik_http_port: "80"
 traefik_https_port: "443"
 traefik_ui_port: "8083"
+traefik_smtp_port: "465"
 traefik_log_level: INFO
+traefik_domain: "{{ homeserver_domain }}"

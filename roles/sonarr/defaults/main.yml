@@ -1,8 +1,8 @@
 ---
 sonarr_memory: 1g
 sonarr_port: 8989
-sonarr_user_id: "{{ ansible_user_id }}"
-sonarr_group_id: "{{ ansible_group_id }}"
-sonarr_config_directory: "{{ docker_home }}/sonarr/config"
-sonarr_tv_directory: "{{ tv_directory }}"
-sonarr_downloads_directory: "{{ downloads_directory }}"
+sonarr_user_id: "{{ homeserver_user_id }}"
+sonarr_group_id: "{{ homeserver_group_id }}"
+sonarr_config_directory: "{{ homeserver_docker_home }}/sonarr/config"
+sonarr_tv_directory: "{{ homeserver_tv_root }}"
+sonarr_downloads_directory: "{{ homeserver_downloads_root }}"

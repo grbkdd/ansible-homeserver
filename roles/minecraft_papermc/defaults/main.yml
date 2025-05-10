@@ -1,6 +1,6 @@
 ---
 minecraft_papermc_memory: 1g
 minecraft_papermc_port: 49152
-minecraft_papermc_user_id: "{{ ansible_user_id }}"
-minecraft_papermc_group_id: "{{ ansible_group_id }}"
-minecraft_papermc_data_directory: "{{ docker_home }}/minecraft-papermc/data"
+minecraft_papermc_user_id: "{{ homeserver_user_id }}"
+minecraft_papermc_group_id: "{{ homeserver_group_id }}"
+minecraft_papermc_data_directory: "{{ homeserver_docker_home }}/minecraft-papermc/data"

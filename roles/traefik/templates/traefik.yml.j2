@@ -15,13 +15,13 @@ entryPoints:
       tls:
         certResolver: letsencrypt
         domains:
-          main: "{{ homelab_domain }}"
+          main: "{{ traefik_domain }}"
           sans:
-            - "*.{{ homelab_domain }}"
+            - "*.{{ traefik_domain }}"
   traefik:
     address: ":{{ traefik_ui_port }}"
   mailsecure:
-    address: ":465"
+    address: ":{{ traefik_smtp_port }}"
 log:
   level: {{ traefik_log_level }}
 providers:

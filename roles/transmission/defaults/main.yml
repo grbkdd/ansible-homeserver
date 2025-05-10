@@ -1,8 +1,8 @@
 ---
 transmission_memory: 1g
 transmission_network_mode: container:gluetun
-transmission_user_id: "{{ ansible_user_id }}"
-transmission_group_id: "{{ ansible_group_id }}"
-transmission_config_directory: "{{ docker_home }}/transmission/config"
-transmission_downloads_directory: "{{ downloads_directory }}"
-transmission_watch_directory: "{{ torrents_directory }}"
+transmission_user_id: "{{ homeserver_user_id }}"
+transmission_group_id: "{{ homeserver_group_id }}"
+transmission_config_directory: "{{ homeserver_docker_home }}/transmission/config"
+transmission_downloads_directory: "{{ homeserver_downloads_root }}"
+transmission_watch_directory: "{{ homeserver_torrents_root }}"

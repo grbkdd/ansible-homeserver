@@ -1,6 +1,6 @@
 ---
 # Docker application data
-docker_home: /opt/docker
+docker_home: "{{ homeserver_docker_home }}"
 
 # Docker image directory
 docker_image_directory: /var/lib/docker
@@ -11,3 +11,4 @@ docker_storage_driver: overlay2
 docker_daemon_json:
   data-root: "{{ docker_image_directory }}"
   storage-driver: "{{ docker_storage_driver }}"
+

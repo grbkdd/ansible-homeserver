@@ -1,9 +1,9 @@
 ---
 plex_memory: 1g
 plex_port: 32400
-plex_user_id: "{{ ansible_user_id }}"
-plex_group_id: "{{ ansible_group_id }}"
-plex_config_directory: "{{ docker_home }}/plex/config"
-plex_transcode_directory: "{{ docker_home }}/plex/transcode"
-plex_movies_directory: "{{ movies_directory }}"
-plex_tv_directory: "{{ tv_directory }}"
+plex_user_id: "{{ homeserver_user_id }}"
+plex_group_id: "{{ homeserver_group_id }}"
+plex_config_directory: "{{ homeserver_docker_home }}/plex/config"
+plex_transcode_directory: "{{ homeserver_docker_home }}/plex/transcode"
+plex_movies_directory: "{{ homeserver_movies_root }}"
+plex_tv_directory: "{{ homeserver_tv_root }}"

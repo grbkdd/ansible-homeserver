@@ -1,0 +1,5 @@
+---
+- name: Set up system
+  ansible.builtin.import_playbook: system.yml
+- name: Deploy Docker containers
+  ansible.builtin.import_playbook: docker.yml

@@ -27,6 +27,6 @@
       traefik.tcp.routers.mailrise.rule: HostSNI(`*`)
       traefik.tcp.routers.mailrise.tls: "true"
       traefik.tcp.routers.mailrise.tls.certresolver: letsencrypt
-      traefik.tcp.routers.mailrise.tls.domains[0].main: mailrise.{{ homelab_domain }}
+      traefik.tcp.routers.mailrise.tls.domains[0].main: mailrise.{{ mailrise_domain }}
       traefik.tcp.routers.mailrise.tls.domains[0].sans: ""
       traefik.tcp.routers.mailrise.entrypoints: mailsecure

@@ -12,9 +12,9 @@
     memory: "{{ whoami_memory }}"
     labels:
       traefik.enable: "{{ true | string }}"
-      traefik.http.routers.whoami.rule: Host(`whoami.{{ homelab_domain }}`)
+      traefik.http.routers.whoami.rule: Host(`whoami.{{ whoami_domain }}`)
       traefik.http.routers.whoami.tls: "true"
       traefik.http.routers.whoami.tls.certresolver: letsencrypt
-      traefik.http.routers.whoami.tls.domains[0].main: "{{ homelab_domain }}"
-      traefik.http.routers.whoami.tls.domains[0].sans: "*.{{ homelab_domain }}"
+      traefik.http.routers.whoami.tls.domains[0].main: "{{ whoami_domain }}"
+      traefik.http.routers.whoami.tls.domains[0].sans: "*.{{ whoami_domain }}"
       traefik.http.services.whoami.loadbalancer.server.port: "27351"

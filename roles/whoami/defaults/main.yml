@@ -1,3 +1,4 @@
 ---
 whoami_memory: 1g
 whoami_port: 27351
+whoami_domain: "{{ homeserver_domain }}"

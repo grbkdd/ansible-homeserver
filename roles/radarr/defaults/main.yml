@@ -1,8 +1,8 @@
 ---
 radarr_memory: 1g
 radarr_port: 7878
-radarr_user_id: "{{ ansible_user_id }}"
-radarr_group_id: "{{ ansible_group_id }}"
-radarr_config_directory: "{{ docker_home }}/radarr/config"
-radarr_movies_directory: "{{ movies_directory }}"
-radarr_downloads_directory: "{{ downloads_directory }}"
+radarr_user_id: "{{ homeserver_user_id }}"
+radarr_group_id: "{{ homeserver_group_id }}"
+radarr_config_directory: "{{ homeserver_docker_home }}/radarr/config"
+radarr_movies_directory: "{{ homeserver_movies_root }}"
+radarr_downloads_directory: "{{ homeserver_downloads_root }}"

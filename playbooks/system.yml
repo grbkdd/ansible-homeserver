@@ -15,7 +15,7 @@
     - name: Install ZFS support and import pools
       ansible.builtin.include_role:
         name: zfs
-    - name: Set up Samba server
+    - name: Install Samba
       ansible.builtin.include_role:
         name: vladgh.samba.server
     - name: Install Tailscale
@@ -30,7 +30,7 @@
     - name: Configure Docker
       ansible.builtin.include_role:
         name: docker
-    - name: Configure backup
+    - name: Install backup scripts
       ansible.builtin.include_role:
         name: backup
     - name: Install Postfix
