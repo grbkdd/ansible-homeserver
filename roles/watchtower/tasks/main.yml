@@ -6,6 +6,10 @@
     pull: true
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-    command: "{{ watchtower_command }}"
+    env:
+      WATCHTOWER_SCHEDULE: "{{ watchtower_cron_schedule }}"
+      WATCHTOWER_NOTIFICATIONS: shoutrrr
+      WATCHTOWER_NOTIFICATION_URL: "{{ watchtower_notification_url }}"
+      WATCHTOWER_NOTIFICATIONS_HOSTNAME: "{{ ansible_hostname }}"
     restart_policy: unless-stopped
     memory: "{{ watchtower_memory }}"

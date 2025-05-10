@@ -1,4 +1,4 @@
 ---
 watchtower_memory: 1g
 watchtower_cron_schedule: 0 0 7 * * *
-watchtower_command: --schedule '{{ watchtower_cron_schedule }}'
+watchtower_notification_url: pushover://shoutrrr:{{ watchtower_pushover_app_token }}@{{ watchtower_pushover_user_token }}
