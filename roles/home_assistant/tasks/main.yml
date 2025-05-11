@@ -1,0 +1,26 @@
+---
+- name: Create Home Assistant directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items:
+    - "{{ home_assistant_data_directory }}/config"
+- name: Start Home Assistant container
+  community.docker.docker_container:
+    name: home-assistant
+    image: homeassistant/home-assistant:latest
+    pull: true
+    volumes:
+      - "{{ home_assistant_data_directory }}/config:/config:rw"
+    network_mode: host
+    restart_policy: unless-stopped
+    memory: "{{ home_assistant_memory }}"
+    labels:
+      traefik.enable: "{{ true | string }}"
+      traefik.http.routers.home_assistant.rule: Host(`home-assistant.{{ home_assistant_domain }}`)
+      traefik.http.routers.home_assistant.tls: "true"
+      traefik.http.routers.home_assistant.tls.certresolver: letsencrypt
+      traefik.http.routers.home_assistant.tls.domains[0].main: "{{ home_assistant_domain }}"
+      traefik.http.routers.home_assistant.tls.domains[0].sans: "*.{{ home_assistant_domain }}"
+      traefik.http.services.home_assistant.loadbalancer.server.port: "8123"

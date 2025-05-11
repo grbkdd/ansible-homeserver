@@ -57,3 +57,6 @@
     - name: Deploy Mailrise
       ansible.builtin.include_role:
         name: mailrise
+    - name: Deploy Home Assistant
+      ansible.builtin.include_role:
+        name: home_assistant

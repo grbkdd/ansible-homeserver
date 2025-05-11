@@ -1,0 +1,4 @@
+---
+home_assistant_memory: 1g
+home_assistant_data_directory: "{{ homeserver_docker_home }}/home-assistant"
+home_assistant_domain: "{{ homeserver_domain }}"
