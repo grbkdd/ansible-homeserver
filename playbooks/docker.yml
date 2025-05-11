@@ -60,3 +60,6 @@
     - name: Deploy Home Assistant
       ansible.builtin.include_role:
         name: home_assistant
+    - name: Deploy Docker Proxy
+      ansible.builtin.include_role:
+        name: dockerproxy
