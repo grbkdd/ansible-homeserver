@@ -1,0 +1,47 @@
+---
+- name: Create Minecraft Cursed Walking directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items:
+    - "{{ minecraft_data_directory }}"
+    - "{{ minecraft_data_directory }}/papermc"
+    - "{{ minecraft_data_directory }}/cursed-walking"
+- name: Start Minecraft PaperMC server
+  community.docker.docker_container:
+    name: minecraft-papermc
+    image: marctv/minecraft-papermc-server:latest
+    pull: true
+    ports:
+      - "{{ minecraft_papermc_port }}:25565"
+    env:
+      PUID: "{{ minecraft_user_id }}"
+      PGID: "{{ minecraft_group_id }}"
+      MEMORYSIZE: "{{ minecraft_papermc_memory }}"
+    restart_policy: unless-stopped
+    memory: "{{ minecraft_papermc_memory }}"
+    volumes:
+      - "{{ minecraft_data_directory }}/papermc:/data:rw"
+- name: Start Minecraft Cursed Walking server
+  community.docker.docker_container:
+    name: minecraft-cursed-walking
+    image: itzg/minecraft-server:latest
+    pull: true
+    ports:
+      - "{{ minecraft_cursed_walking_port }}:25565"
+    env:
+      UID: "{{ minecraft_user_id }}"
+      GID: "{{ minecraft_group_id }}"
+      VERSION: 1.20.1
+      CF_API_KEY: $$2a$$10$$fI37G2Lt0YsVMbtQS0tBvezRbUBwEaBb8a6/QS9RUiVn3FDCZB49G
+      CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/cursed-walking-a-modern-zombie-apocalypse
+      MEMORY: "{{ minecraft_cursed_walking_memory }}"
+      TYPE: AUTO_CURSEFORGE
+      EULA: "TRUE"
+    restart_policy: unless-stopped
+    memory: "{{ minecraft_cursed_walking_memory }}"
+    volumes:
+      - "{{ minecraft_data_directory }}/cursed-walking:/data:rw"
+    interactive: true
+    tty: true

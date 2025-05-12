@@ -1,0 +1,8 @@
+---
+minecraft_user_id: "{{ homeserver_user_id }}"
+minecraft_group_id: "{{ homeserver_group_id }}"
+minecraft_data_directory: "{{ homeserver_docker_home }}/minecraft"
+minecraft_cursed_walking_memory: 4g
+minecraft_cursed_walking_port: 34219
+minecraft_papermc_memory: 4g
+minecraft_papermc_port: 49152
