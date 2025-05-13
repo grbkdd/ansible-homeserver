@@ -34,7 +34,7 @@
       UID: "{{ minecraft_user_id }}"
       GID: "{{ minecraft_group_id }}"
       VERSION: 1.20.1
-      CF_API_KEY: $$2a$$10$$fI37G2Lt0YsVMbtQS0tBvezRbUBwEaBb8a6/QS9RUiVn3FDCZB49G
+      CF_API_KEY: "{{ minecraft_curseforge_api_key }}"
       CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/cursed-walking-a-modern-zombie-apocalypse
       MEMORY: "{{ minecraft_cursed_walking_memory }}"
       TYPE: AUTO_CURSEFORGE
