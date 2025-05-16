@@ -1,47 +1,27 @@
 ---
-- name: Create Minecraft Cursed Walking directories
+- name: Create Minecraft directories
   ansible.builtin.file:
-    path: "{{ item }}"
+    path: "{{ minecraft_data_directory }}/{{ item.name }}"
     state: directory
     mode: "0755"
-  with_items:
-    - "{{ minecraft_data_directory }}"
-    - "{{ minecraft_data_directory }}/papermc"
-    - "{{ minecraft_data_directory }}/cursed-walking"
-- name: Start Minecraft PaperMC server
+  with_items: "{{ minecraft_servers }}"
+- name: Set default environment variables
+  ansible.builtin.set_fact:
+    default_env:
+      UID: "{{ minecraft_user_id }}"
+      GID: "{{ minecraft_group_id }}"
+      MEMORY: 4g
+      EULA: "TRUE"
+- name: Start Minecraft servers
   community.docker.docker_container:
-    name: minecraft-papermc
-    image: marctv/minecraft-papermc-server:latest
-    pull: true
-    ports:
-      - "{{ minecraft_papermc_port }}:25565"
-    env:
-      PUID: "{{ minecraft_user_id }}"
-      PGID: "{{ minecraft_group_id }}"
-      MEMORYSIZE: 4g
-    restart_policy: unless-stopped
-    memory: 6g
-    volumes:
-      - "{{ minecraft_data_directory }}/papermc:/data:rw"
-- name: Start Minecraft Cursed Walking server
-  community.docker.docker_container:
-    name: minecraft-cursed-walking
+    name: minecraft-{{ item.name }}
     image: itzg/minecraft-server:latest
     pull: true
     ports:
-      - "{{ minecraft_cursed_walking_port }}:25565"
-    env:
-      UID: "{{ minecraft_user_id }}"
-      GID: "{{ minecraft_group_id }}"
-      VERSION: 1.20.1
-      CF_API_KEY: "{{ minecraft_curseforge_api_key }}"
-      CF_PAGE_URL: https://www.curseforge.com/minecraft/modpacks/cursed-walking-a-modern-zombie-apocalypse
-      MEMORY: 4g
-      TYPE: AUTO_CURSEFORGE
-      EULA: "TRUE"
+      - "{{ item.port }}:25565"
+    env: "{{ default_env | ansible.builtin.combine(item.env) }}"
     restart_policy: unless-stopped
     memory: 6g
     volumes:
-      - "{{ minecraft_data_directory }}/cursed-walking:/data:rw"
-    interactive: true
-    tty: true
+      - "{{ minecraft_data_directory }}/{{ item.name }}:/data:rw"
+  with_items: "{{ minecraft_servers }}"
