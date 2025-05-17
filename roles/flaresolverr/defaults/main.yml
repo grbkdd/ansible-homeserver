@@ -1,3 +1,4 @@
 ---
 flaresolverr_memory: 1g
 flaresolverr_port: 8191
+flaresolverr_domain: "{{ homeserver_domain }}"

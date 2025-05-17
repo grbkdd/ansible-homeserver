@@ -15,3 +15,11 @@
       TASKS: "1"
       POST: "0"
     memory: "{{ dockerproxy_memory }}"
+    labels:
+      traefik.enable: "{{ true | string }}"
+      traefik.http.routers.dockerproxy.rule: Host(`dockerproxy.{{ dockerproxy_domain }}`)
+      traefik.http.routers.dockerproxy.tls: "true"
+      traefik.http.routers.dockerproxy.tls.certresolver: letsencrypt
+      traefik.http.routers.dockerproxy.tls.domains[0].main: "{{ dockerproxy_domain }}"
+      traefik.http.routers.dockerproxy.tls.domains[0].sans: "*.{{ dockerproxy_domain }}"
+      traefik.http.services.dockerproxy.loadbalancer.server.port: "2375"

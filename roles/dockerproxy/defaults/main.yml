@@ -1,3 +1,4 @@
 ---
 dockerproxy_memory: 1g
 dockerproxy_port: 2375
+dockerproxy_domain: "{{ homeserver_domain }}"
