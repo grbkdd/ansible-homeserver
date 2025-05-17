@@ -1,4 +1,4 @@
-# Homelab Setup
+# Ansible Home Server
 
 ## System installation
 
