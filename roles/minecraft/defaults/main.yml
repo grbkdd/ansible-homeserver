@@ -2,4 +2,3 @@
 minecraft_user_id: "{{ homeserver_user_id }}"
 minecraft_group_id: "{{ homeserver_group_id }}"
 minecraft_data_directory: "{{ homeserver_docker_home }}/minecraft"
-

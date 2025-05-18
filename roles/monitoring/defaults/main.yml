@@ -1,0 +1,6 @@
+---
+monitoring_grafana_loki_memory: 1g
+monitoring_grafana_alloy_memory: 1g
+monitoring_grafana_memory: 1g
+monitoring_data_directory: "{{ homeserver_docker_home }}/monitoring"
+monitoring_domain: "{{ homeserver_domain }}"

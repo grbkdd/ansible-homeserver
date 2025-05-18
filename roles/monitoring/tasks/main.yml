@@ -1,0 +1,96 @@
+---
+- name: Create monitoring directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items:
+    - "{{ monitoring_data_directory }}"
+    - "{{ monitoring_data_directory }}/grafana/datasources"
+    - "{{ monitoring_data_directory }}/grafana/dashboards"
+    - "{{ monitoring_data_directory }}/grafana/jsons"
+- name: Create Loki configuration file
+  ansible.builtin.template:
+    src: loki-config.yaml.j2
+    dest: "{{ monitoring_data_directory }}/loki-config.yaml"
+    mode: "0644"
+  register: loki_config
+- name: Create Alloy configuration files
+  ansible.builtin.template:
+    src: config.alloy.j2
+    dest: "{{ monitoring_data_directory }}/config.alloy"
+    mode: "0644"
+  register: alloy_config
+- name: Create Grafana configuration files
+  ansible.builtin.template:
+    src: "{{ item.src }}"
+    dest: "{{ monitoring_data_directory }}/grafana/{{ item.dest }}"
+    mode: "0644"
+  register: grafana_config
+  with_items:
+    - src: grafana-datasources.yml.j2
+      dest: datasources/default.yaml
+    - src: grafana-dashboards.yml.j2
+      dest: dashboards/default.yaml
+- name: Copy Grafana dashboards
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: "{{ monitoring_data_directory }}/grafana/jsons"
+    mode: "0644"
+  with_items:
+    - Docker.json
+- name: Start Grafana Loki container
+  community.docker.docker_container:
+    name: loki
+    image: grafana/loki:latest
+    pull: true
+    ports:
+      - 3100:3100
+    restart_policy: unless-stopped
+    memory: "{{ monitoring_grafana_loki_memory }}"
+    command: -config.file=/etc/loki/local-config.yaml
+    volumes:
+      - "{{ monitoring_data_directory }}/loki-config.yaml:/etc/loki/local-config.yaml:ro"
+    recreate: "{{ loki_config is changed }}"
+- name: Start Grafana Alloy container
+  community.docker.docker_container:
+    name: alloy
+    image: grafana/alloy:latest
+    pull: true
+    ports:
+      - 12345:12345
+      - 4317:4317
+      - 4318:4318
+    restart_policy: unless-stopped
+    memory: "{{ monitoring_grafana_alloy_memory }}"
+    command: run --server.http.listen-addr=0.0.0.0:12345 --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
+    volumes:
+      - "{{ monitoring_data_directory }}/config.alloy:/etc/alloy/config.alloy:ro"
+      - /var/run/docker.sock:/var/run/docker.sock
+    recreate: "{{ alloy_config is changed }}"
+- name: Start Grafana container
+  community.docker.docker_container:
+    name: grafana
+    image: grafana/grafana:latest
+    pull: true
+    ports:
+      - 3200:3000
+    restart_policy: unless-stopped
+    memory: "{{ monitoring_grafana_memory }}"
+    env:
+      GF_PATHS_PROVISIONING: /etc/grafana/provisioning
+      GF_AUTH_ANONYMOUS_ENABLED: "true"
+      GF_AUTH_ANONYMOUS_ORG_ROLE: Admin
+    volumes:
+      - "{{ monitoring_data_directory }}/grafana/datasources:/etc/grafana/provisioning/datasources:ro"
+      - "{{ monitoring_data_directory }}/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro"
+      - "{{ monitoring_data_directory }}/grafana/jsons:/var/lib/grafana/dashboards:ro"
+    recreate: "{{ grafana_config is changed }}"
+    labels:
+      traefik.enable: "{{ true | string }}"
+      traefik.http.routers.grafana.rule: Host(`grafana.{{ monitoring_domain }}`)
+      traefik.http.routers.grafana.tls: "true"
+      traefik.http.routers.grafana.tls.certresolver: letsencrypt
+      traefik.http.routers.grafana.tls.domains[0].main: "{{ monitoring_domain }}"
+      traefik.http.routers.grafana.tls.domains[0].sans: "*.{{ monitoring_domain }}"
+      traefik.http.services.grafana.loadbalancer.server.port: "3000"

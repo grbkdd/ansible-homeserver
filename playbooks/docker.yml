@@ -60,3 +60,6 @@
     - name: Deploy Docker Proxy
       ansible.builtin.include_role:
         name: dockerproxy
+    - name: Deploy monitoring
+      ansible.builtin.include_role:
+        name: monitoring
