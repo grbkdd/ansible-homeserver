@@ -24,7 +24,7 @@
       - "{{ pingvin_share_data_directory }}/data/images:/opt/app/frontend/public/img:rw"
     labels:
       traefik.enable: "{{ true | string }}"
-      traefik.http.routers.pingvin_share.rule: Host(`pingvin-share.{{ pingvin_share_domain }}`)
+      traefik.http.routers.pingvin_share.rule: Host(`share.{{ pingvin_share_domain }}`)
       traefik.http.routers.pingvin_share.tls: "true"
       traefik.http.routers.pingvin_share.tls.certresolver: letsencrypt
       traefik.http.routers.pingvin_share.tls.domains[0].main: "{{ pingvin_share_domain }}"
