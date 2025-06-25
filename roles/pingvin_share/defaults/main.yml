@@ -1,0 +1,7 @@
+---
+pingvin_share_memory: 1g
+pingvin_share_port: 5000
+pingvin_share_user_id: "{{ homeserver_user_id }}"
+pingvin_share_group_id: "{{ homeserver_group_id }}"
+pingvin_share_domain: "{{ homeserver_domain }}"
+pingvin_share_data_directory: "{{ homeserver_docker_home }}/pingvin-share"

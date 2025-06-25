@@ -63,3 +63,6 @@
     - name: Deploy monitoring
       ansible.builtin.include_role:
         name: monitoring
+    - name: Deploy Pingvin Share
+      ansible.builtin.include_role:
+        name: pingvin_share

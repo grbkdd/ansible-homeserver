@@ -1,0 +1,32 @@
+---
+- name: Create Pingvin Share directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items:
+    - "{{ pingvin_share_data_directory }}"
+- name: Start Pingvin Share container
+  community.docker.docker_container:
+    name: pingvin-share
+    image: stonith404/pingvin-share:latest
+    pull: true
+    ports:
+      - "{{ pingvin_share_port }}:3000"
+    env:
+      PUID: "{{ pingvin_share_user_id }}"
+      PGID: "{{ pingvin_share_group_id }}"
+      TRUST_PROXY: "{{ true | string }}"
+    restart_policy: unless-stopped
+    memory: "{{ pingvin_share_memory }}"
+    volumes:
+      - "{{ pingvin_share_data_directory }}/data:/opt/app/backend/data:rw"
+      - "{{ pingvin_share_data_directory }}/data/images:/opt/app/frontend/public/img:rw"
+    labels:
+      traefik.enable: "{{ true | string }}"
+      traefik.http.routers.pingvin_share.rule: Host(`pingvin-share.{{ pingvin_share_domain }}`)
+      traefik.http.routers.pingvin_share.tls: "true"
+      traefik.http.routers.pingvin_share.tls.certresolver: letsencrypt
+      traefik.http.routers.pingvin_share.tls.domains[0].main: "{{ pingvin_share_domain }}"
+      traefik.http.routers.pingvin_share.tls.domains[0].sans: "*.{{ pingvin_share_domain }}"
+      traefik.http.services.pingvin_share.loadbalancer.server.port: "3000"
