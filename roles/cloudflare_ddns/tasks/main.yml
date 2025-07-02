@@ -7,6 +7,7 @@
     env:
       API_KEY: "{{ cloudflare_ddns_api_key }}"
       ZONE: "{{ cloudflare_ddns_dns_zone }}"
+      SUBDOMAIN: "{{ cloudflare_ddns_dns_subdomain }}"
       PROXIED: "{{ false | string }}"
     restart_policy: unless-stopped
     memory: "{{ cloudflare_ddns_memory }}"

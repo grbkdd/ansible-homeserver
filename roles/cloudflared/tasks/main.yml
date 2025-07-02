@@ -1,0 +1,12 @@
+---
+- name: Start Cloudflared container
+  community.docker.docker_container:
+    name: cloudflared
+    image: cloudflare/cloudflared:latest
+    pull: true
+    env:
+      TUNNEL_TOKEN: "{{ cloudflared_tunnel_token }}"
+    network_mode: host
+    restart_policy: unless-stopped
+    memory: "{{ cloudflared_memory }}"
+    command: tunnel run

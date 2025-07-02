@@ -66,3 +66,6 @@
     - name: Deploy Pingvin Share
       ansible.builtin.include_role:
         name: pingvin_share
+    - name: Deploy Cloudflared
+      ansible.builtin.include_role:
+        name: cloudflared
